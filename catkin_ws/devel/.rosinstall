@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/hs/Documents/pendulum_control/catkin_ws/devel/setup.sh

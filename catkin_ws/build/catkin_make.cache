@@ -1,0 +1,2 @@
+pendulum_pkg
+-DCATKIN_DEVEL_PREFIX=/home/hs/Documents/pendulum_control/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/hs/Documents/pendulum_control/catkin_ws/install -G Unix Makefiles
