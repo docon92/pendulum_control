@@ -1,4 +1,5 @@
 #include "pendulum.h"
+#include <cstdlib>
 
 
 /*****************************************************************************/
@@ -17,6 +18,7 @@ int main(int argc, char* argv[])
     float l = 1.0;
     float m = 2.0;
     float M = 3.0;
+    float max_disturbance = 10.0;
     float sim_rate = 20.0;
 
 //    NodeHandle.param("theta_0", theta_0);
@@ -31,7 +33,7 @@ int main(int argc, char* argv[])
 
     
 
-    pendulum pend = pendulum(NodeHandle,theta_0,x_0,l,m,M);
+    pendulum pend = pendulum(NodeHandle,theta_0,x_0,l,m,M,max_disturbance);
 
     while(ros::ok())
 	{

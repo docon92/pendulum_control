@@ -5,7 +5,8 @@
                       float x_0,
                       float length,
                       float m_pendulum,
-                      float M_cart)
+                      float M_cart,
+                      float max_dist)
 {
 
   float g = 9.807;
@@ -34,7 +35,8 @@
 
   F = 0.0;
   disturbance = 0.0;
-
+  //srand (static_cast <unsigned> (ros::Time::now().toSec()));
+  srand (static_cast <unsigned> (time(0)));
   ROS_INFO("Initialized a pendulum!");
 }
 
@@ -42,7 +44,14 @@
 
 void pendulum::run (void)
 {
+  pendulum::calculate_disturbance();
   pendulum::step();
+}
+
+void pendulum::calculate_disturbance (void)
+{
+  float omega = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/10.0);
+  ROS_INFO("disturbance is: %f",omega);
 }
 
 void pendulum::step( void )

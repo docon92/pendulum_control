@@ -21,6 +21,8 @@ pendulum.h
 /home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/src/pendulum_node.cpp
 pendulum.h
 /home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/src/pendulum.h
+cstdlib
+-
 
 /opt/ros/melodic/include/geometry_msgs/Pose2D.h
 string
