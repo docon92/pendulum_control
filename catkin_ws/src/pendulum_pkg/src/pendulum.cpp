@@ -34,9 +34,10 @@
   c4 = 1.0/M;
 
   F = 0.0;
+  max_disturbance = max_dist;
   disturbance = 0.0;
-  //srand (static_cast <unsigned> (ros::Time::now().toSec()));
-  srand (static_cast <unsigned> (time(0)));
+  srand (static_cast <unsigned> (ros::Time::now().toSec()));
+  //srand (static_cast <unsigned> (time(0)));
   ROS_INFO("Initialized a pendulum!");
 }
 
@@ -50,8 +51,8 @@ void pendulum::run (void)
 
 void pendulum::calculate_disturbance (void)
 {
-  float omega = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/10.0);
-  ROS_INFO("disturbance is: %f",omega);
+  disturbance = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/max_disturbance);
+  //ROS_INFO("disturbance is: %f",disturbance);
 }
 
 void pendulum::step( void )
@@ -74,6 +75,6 @@ void pendulum::step( void )
 
 
   LastTimestamp = ros::Time::now();
-
+  ROS_INFO("Angle is: %f", x1);
 
 }
