@@ -9,8 +9,8 @@
 /home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/include/pendulum.h
 ros/ros.h
 -
-std_msgs/String.h
-/home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/include/std_msgs/String.h
+std_msgs/Float64.h
+/home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/include/std_msgs/Float64.h
 geometry_msgs/Pose2D.h
 /home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/include/geometry_msgs/Pose2D.h
 
@@ -686,7 +686,7 @@ ros/forwards.h
 
 /opt/ros/melodic/include/rosconsole/macros_generated.h
 
-/opt/ros/melodic/include/std_msgs/String.h
+/opt/ros/melodic/include/std_msgs/Float64.h
 string
 -
 vector

@@ -12,6 +12,12 @@
   float g = 9.807;
   nh = In_nh;
 
+  force_input_sub =
+    nh.subscribe<std_msgs::Float64>("controller/output_force", 5, &pendulum::handle_force_input,this);
+  position_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/position", 5);
+  velocity_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/velocity", 5);
+
+
   x1 = theta_0;
   x2 = 0.0;
   x3 = x_0;
@@ -49,6 +55,11 @@ void pendulum::run (void)
   pendulum::step();
 }
 
+void pendulum::handle_force_input (const std_msgs::Float64::ConstPtr& new_force_input)
+{
+  F = new_force_input->data;
+}
+
 void pendulum::calculate_disturbance (void)
 {
   disturbance = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/max_disturbance);
@@ -59,7 +70,7 @@ void pendulum::step( void )
 {
   ros::Duration time_temp = ros::Time::now() - LastTimestamp;
   dt = time_temp.toSec();
-  //ROS_INFO("dt is: %f seconds",dt);
+  ROS_INFO("dt is: %f seconds",dt);
 
   u = F + disturbance;
 
@@ -72,9 +83,17 @@ void pendulum::step( void )
   x2 += delta_x2;
   x3 += delta_x3;
   x4 += delta_x4;
+  
+  position_msg.theta = x1;
+  position_msg.x = x2;
+  velocity_msg.theta = x3;
+  velocity_msg.x =x4;
+  
 
+	position_pub.publish(position_msg);
+	velocity_pub.publish(velocity_msg);
 
   LastTimestamp = ros::Time::now();
-  ROS_INFO("Angle is: %f", x1);
+  //ROS_INFO("Angle is: %f", x1);
 
 }

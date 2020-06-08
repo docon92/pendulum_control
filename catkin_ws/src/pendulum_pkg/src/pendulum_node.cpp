@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
     float m_default = 2.0;
     float M_default = 3.0;
     float max_disturbance_default = 10.0;
-    float sim_rate_default = 1.0;
+    float sim_rate_default = 10.0;
 
     NodeHandle.param("theta_0", theta_0,theta_default);
 	NodeHandle.param("x_0", x_0, x_default);

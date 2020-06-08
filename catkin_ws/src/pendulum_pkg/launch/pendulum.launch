@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+    <group ns="pendulum_1">
+        <include file="$(find mission_pkg)/config/default_pendulum.yaml">
+        <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum_1" output="screen"/>
+        </include>
+    </group>
+</launch>
