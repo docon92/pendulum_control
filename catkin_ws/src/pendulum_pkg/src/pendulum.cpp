@@ -60,9 +60,12 @@ void pendulum::handle_force_input (const std_msgs::Float64::ConstPtr& new_force_
   F = new_force_input->data;
 }
 
+/// Calclulate a random disturbance. Outputs a random float between -max_disturbance and + max_disturbance
+/// rand() is initialized in the constructor
 void pendulum::calculate_disturbance (void)
 {
-  disturbance = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/max_disturbance);
+  
+  disturbance = -max_disturbance + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/(2*max_disturbance));
   //ROS_INFO("disturbance is: %f",disturbance);
 }
 

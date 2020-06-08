@@ -273,6 +273,21 @@ roscpp_generate_messages_eus/fast:
 .PHONY : roscpp_generate_messages_eus/fast
 
 # Convenience name for target.
+pendulum_pkg/CMakeFiles/controller_node.dir/rule:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pendulum_pkg/CMakeFiles/controller_node.dir/rule
+.PHONY : pendulum_pkg/CMakeFiles/controller_node.dir/rule
+
+# Convenience name for target.
+controller_node: pendulum_pkg/CMakeFiles/controller_node.dir/rule
+
+.PHONY : controller_node
+
+# fast build rule for target.
+controller_node/fast:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/controller_node.dir/build.make pendulum_pkg/CMakeFiles/controller_node.dir/build
+.PHONY : controller_node/fast
+
+# Convenience name for target.
 pendulum_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pendulum_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
 .PHONY : pendulum_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
@@ -497,6 +512,60 @@ std_msgs_generate_messages_py/fast:
 	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/std_msgs_generate_messages_py.dir/build.make pendulum_pkg/CMakeFiles/std_msgs_generate_messages_py.dir/build
 .PHONY : std_msgs_generate_messages_py/fast
 
+src/controller.o: src/controller.cpp.o
+
+.PHONY : src/controller.o
+
+# target to build an object file
+src/controller.cpp.o:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/controller_node.dir/build.make pendulum_pkg/CMakeFiles/controller_node.dir/src/controller.cpp.o
+.PHONY : src/controller.cpp.o
+
+src/controller.i: src/controller.cpp.i
+
+.PHONY : src/controller.i
+
+# target to preprocess a source file
+src/controller.cpp.i:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/controller_node.dir/build.make pendulum_pkg/CMakeFiles/controller_node.dir/src/controller.cpp.i
+.PHONY : src/controller.cpp.i
+
+src/controller.s: src/controller.cpp.s
+
+.PHONY : src/controller.s
+
+# target to generate assembly for a file
+src/controller.cpp.s:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/controller_node.dir/build.make pendulum_pkg/CMakeFiles/controller_node.dir/src/controller.cpp.s
+.PHONY : src/controller.cpp.s
+
+src/controller_node.o: src/controller_node.cpp.o
+
+.PHONY : src/controller_node.o
+
+# target to build an object file
+src/controller_node.cpp.o:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/controller_node.dir/build.make pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.o
+.PHONY : src/controller_node.cpp.o
+
+src/controller_node.i: src/controller_node.cpp.i
+
+.PHONY : src/controller_node.i
+
+# target to preprocess a source file
+src/controller_node.cpp.i:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/controller_node.dir/build.make pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.i
+.PHONY : src/controller_node.cpp.i
+
+src/controller_node.s: src/controller_node.cpp.s
+
+.PHONY : src/controller_node.s
+
+# target to generate assembly for a file
+src/controller_node.cpp.s:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/controller_node.dir/build.make pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.s
+.PHONY : src/controller_node.cpp.s
+
 src/pendulum.o: src/pendulum.cpp.o
 
 .PHONY : src/pendulum.o
@@ -570,6 +639,7 @@ help:
 	@echo "... roscpp_generate_messages_py"
 	@echo "... roscpp_generate_messages_eus"
 	@echo "... edit_cache"
+	@echo "... controller_node"
 	@echo "... geometry_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_cpp"
@@ -586,6 +656,12 @@ help:
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... src/controller.o"
+	@echo "... src/controller.i"
+	@echo "... src/controller.s"
+	@echo "... src/controller_node.o"
+	@echo "... src/controller_node.i"
+	@echo "... src/controller_node.s"
 	@echo "... src/pendulum.o"
 	@echo "... src/pendulum.i"
 	@echo "... src/pendulum.s"

@@ -143,6 +143,11 @@ include_directories(
   src/pendulum.cpp
 )
 
+ add_executable(controller_node 
+  src/controller_node.cpp
+  src/controller.cpp
+)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -155,7 +160,7 @@ include_directories(
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 add_dependencies(pendulum_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
+add_dependencies(controller_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 #add_dependencies(pendulum_node ${catkin_EXPORTED_TARGETS})
 
@@ -165,6 +170,10 @@ add_dependencies(pendulum_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPO
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(pendulum_node 
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(controller_node 
   ${catkin_LIBRARIES}
 )
 
