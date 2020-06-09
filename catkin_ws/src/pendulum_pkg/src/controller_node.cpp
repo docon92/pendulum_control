@@ -15,11 +15,11 @@ int main(int argc, char* argv[])
     
 
     float k1,k2,k3,k4,k5,max_F, ctrl_rate,x3d;
-    float k1_default = -130.2;
-    float k2_default = -38.18;
-    float k3_default = -0.3162;
-    float k4_default = -2.143;
-    float k5_default = -0.0;
+    float k1_default = -237.00;
+    float k2_default = -72.4115;
+    float k3_default = -22.8654;
+    float k4_default = -26.1364;
+    float k5_default = 10.0;
     float max_F_default = 10.0;
     float ctrl_rate_default = 40.0;
     float x3d_default = 0.0;

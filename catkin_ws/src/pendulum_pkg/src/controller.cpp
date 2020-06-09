@@ -27,6 +27,7 @@ controller::controller( ros::NodeHandle& In_nh,
     x3=0.0f;
     x4=0.0f;
     x3i=0.0f;
+    x3d = in_x3d;
 
     F = 0.0f;
     Fd = 0.0f;
@@ -49,11 +50,11 @@ void controller::step( void )
     dt = time_temp.toSec();
     ROS_INFO("dt is: %f seconds",dt);
 
-    // Fd = -k1*x1-k2*x2-k3*x3-k4*x4-k5*x3i;
-    Fd = -k1*x1-k2*x2-k3*x3-k4*x4;
+     Fd = -k1*x1-k2*x2-k3*x3-k4*x4-k5*x3i;
+    //Fd = -k1*x1-k2*x2-k3*x3-k4*x4;
     F = Fd;
-    // x3i += (x3d-x3)*dt;
-
+    x3i = x3i + (x3d-x3)*dt;
+    ROS_INFO("x3i is: %f",x3i);
     Force_msg.data = F;
     force_output_pub.publish(Force_msg);
 
