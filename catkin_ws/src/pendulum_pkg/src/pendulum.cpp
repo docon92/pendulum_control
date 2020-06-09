@@ -66,17 +66,17 @@ void pendulum::calculate_disturbance (void)
 {
   
   disturbance = -max_disturbance + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/(2*max_disturbance));
-  //ROS_INFO("disturbance is: %f",disturbance);
+  ROS_INFO("disturbance is: %f",disturbance);
 }
 
 void pendulum::step( void )
 {
   ros::Duration time_temp = ros::Time::now() - LastTimestamp;
   dt = time_temp.toSec();
-  ROS_INFO("dt is: %f seconds",dt);
+  //ROS_INFO("dt is: %f seconds",dt);
 
-  // u = F + disturbance;
-  u = F;
+  u = F + disturbance;
+  
 
   delta_x1 = x2*dt;
   delta_x2 = (c1*x1+c3*u)*dt;

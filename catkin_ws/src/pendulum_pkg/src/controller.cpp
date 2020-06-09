@@ -43,7 +43,7 @@ controller::~controller(void){}
 void controller::run (void)
 {
     controller::step();
-    ROS_INFO("Running!");
+
 }
 
 void controller::step( void )
@@ -51,25 +51,20 @@ void controller::step( void )
 
     ros::Duration time_temp = ros::Time::now() - LastTimestamp;
     dt = time_temp.toSec();
-    ROS_INFO("dt is: %f seconds",dt);
+    //ROS_INFO("dt is: %f seconds",dt);
 
-     Fd = -k1*x1-k2*x2-k3*(x3-x3_0)-k4*x4-k5*x3i;
-    //Fd = -k1*x1-k2*x2-k3*x3-k4*x4;
-    F = Fd;
+    Fd = -k1*x1-k2*x2-k3*(x3-x3_0)-k4*x4-k5*x3i;
+    F = saturate_output(Fd);
     x3i = x3i + (x3d-x3)*dt;
-    ROS_INFO("x3i is: %f",x3i);
+    //ROS_INFO("x3i is: %f",x3i);
     Force_msg.data = F;
     force_output_pub.publish(Force_msg);
 
-    ROS_INFO("Desired force is: %f",Fd);
+    //ROS_INFO("Desired force is: %f",Fd);
     LastTimestamp = ros::Time::now();
 
 }
 
-float controller::saturate_output (float commanded_force)
-{
-    return 0.0;
-}
 
 void controller::handle_position (const geometry_msgs::Pose2D::ConstPtr& new_position)
 {
@@ -89,3 +84,14 @@ void controller::handle_velocity (const geometry_msgs::Pose2D::ConstPtr& new_vel
   x4 = new_velocity->x;
 }
 
+float controller::sign_of_num(float num)
+{ 
+  if (num>=0.0) return 1.0;
+  else return -1.0;
+}
+
+float controller::saturate_output (float cmd)
+{ 
+  if (cmd<max_F && cmd>-max_F) return cmd;
+  else return max_F*sign_of_num(cmd);
+}

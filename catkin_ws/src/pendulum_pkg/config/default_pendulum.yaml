@@ -14,7 +14,7 @@ x3d: 0.0  # (m)
 
 # Initial Conditions
 
-theta_0: 0.3  # (rad)
+theta_0: 0.0  # (rad)
 x_0: 0.0  # (m)
 
 ## System Definition
@@ -22,7 +22,7 @@ x_0: 0.0  # (m)
 l: 1.0  # (m)
 m: 1.0  # (kg)
 M: 5.0  # (kg)
-max_disturbance: 0.5  # (N)
+max_disturbance: 15.0  # (N)
 
 ## simulation_configs
 ctrl_rate: 40.0 # (Hz)

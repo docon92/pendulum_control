@@ -21,10 +21,10 @@ class controller {
   private:
 
     void step( void );
-    float saturate_output (float commanded_force);
+    float saturate_output (float cmd);
     void handle_position (const geometry_msgs::Pose2D::ConstPtr& new_position);
     void handle_velocity (const geometry_msgs::Pose2D::ConstPtr& new_velocity);
-
+    float sign_of_num(float num);
 
     ros::NodeHandle nh;
     ros::Subscriber position_sub;
