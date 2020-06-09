@@ -8,7 +8,9 @@ controller::controller( ros::NodeHandle& In_nh,
                         float in_k5,
                         float in_x3d,
                         float in_max_output)
-{
+{   
+    CONTROLLER_INIT = false;
+
     nh = In_nh;
    position_sub = nh.subscribe<geometry_msgs::Pose2D>("pendulum/position", 5, &controller::handle_position,this);
    velocity_sub = nh.subscribe<geometry_msgs::Pose2D>("pendulum/velocity", 5, &controller::handle_velocity,this);
@@ -27,6 +29,7 @@ controller::controller( ros::NodeHandle& In_nh,
     x3=0.0f;
     x4=0.0f;
     x3i=0.0f;
+    x3_0=0.0f;
     x3d = in_x3d;
 
     F = 0.0f;
@@ -50,7 +53,7 @@ void controller::step( void )
     dt = time_temp.toSec();
     ROS_INFO("dt is: %f seconds",dt);
 
-     Fd = -k1*x1-k2*x2-k3*x3-k4*x4-k5*x3i;
+     Fd = -k1*x1-k2*x2-k3*(x3-x3_0)-k4*x4-k5*x3i;
     //Fd = -k1*x1-k2*x2-k3*x3-k4*x4;
     F = Fd;
     x3i = x3i + (x3d-x3)*dt;
@@ -70,8 +73,15 @@ float controller::saturate_output (float commanded_force)
 
 void controller::handle_position (const geometry_msgs::Pose2D::ConstPtr& new_position)
 {
+
   x1 = new_position->theta;
   x3 = new_position->x;
+
+ if (!CONTROLLER_INIT)
+    {
+       x3_0 = x3;
+       CONTROLLER_INIT=true; 
+    }
 }
 void controller::handle_velocity (const geometry_msgs::Pose2D::ConstPtr& new_velocity)
 {

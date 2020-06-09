@@ -35,8 +35,9 @@ class controller {
 
 
     float k1, k2, k3, k4, k5;
-    float x1, x2, x3, x4, x3i, x3d;
+    float x1, x2, x3, x4, x3i, x3d, x3_0;
     float Fd, F, max_F;
+    bool CONTROLLER_INIT;
 
     ros::Time LastTimestamp;
     double dt;
