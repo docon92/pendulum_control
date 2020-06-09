@@ -8,14 +8,14 @@ k4: -26.1364
 k5: 10.0
 
 max_F: 10.0  # (N)
-x3d: 5.0  # (m)
+x3d: 0.0  # (m)
 
 ## System Configs
 
 # Initial Conditions
 
-theta: 0.0  # (rad)
-x: 0.0  # (m)
+theta_0: 0.3  # (rad)
+x_0: 0.0  # (m)
 
 ## System Definition
 
