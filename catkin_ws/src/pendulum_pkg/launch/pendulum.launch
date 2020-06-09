@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
 <launch>
-    <group ns="pendulum_1">
-        <include file="$(find mission_pkg)/config/default_pendulum.yaml">
+    <group ns="pendulum_uno">
+        <rosparam command="load" file="$(find pendulum_pkg)/config/default_pendulum.yaml" />
         <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum_1" output="screen"/>
-        </include>
+        <node pkg="pendulum_pkg" type="controller_node" name="controller_1" output="screen"/>
     </group>
 </launch>

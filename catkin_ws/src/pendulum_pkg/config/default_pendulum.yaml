@@ -1,1 +1,29 @@
-## Empty for now, fill with configurations
+
+## Controller Configs
+
+k1: -237.00
+k2: -72.4115
+k3: -22.8654
+k4: -26.1364
+k5: 10.0
+
+max_F: 10.0  # (N)
+x3d: 5.0  # (m)
+
+## System Configs
+
+# Initial Conditions
+
+theta: 0.0  # (rad)
+x: 0.0  # (m)
+
+## System Definition
+
+l: 1.0  # (m)
+m: 1.0  # (kg)
+M: 5.0  # (kg)
+max_disturbance: 0.5  # (N)
+
+## simulation_configs
+ctrl_rate: 40.0 # (Hz)
+sim_rate: 100.0 # (Hz)
