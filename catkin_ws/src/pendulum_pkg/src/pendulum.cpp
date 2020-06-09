@@ -75,7 +75,8 @@ void pendulum::step( void )
   dt = time_temp.toSec();
   ROS_INFO("dt is: %f seconds",dt);
 
-  u = F + disturbance;
+  // u = F + disturbance;
+  u = F;
 
   delta_x1 = x2*dt;
   delta_x2 = (c1*x1+c3*u)*dt;
@@ -88,8 +89,8 @@ void pendulum::step( void )
   x4 += delta_x4;
   
   position_msg.theta = x1;
-  position_msg.x = x2;
-  velocity_msg.theta = x3;
+  position_msg.x = x3;
+  velocity_msg.theta = x2;
   velocity_msg.x =x4;
   
 

@@ -26,7 +26,6 @@ class pendulum {
 
     ros::NodeHandle nh;
     ros::Subscriber force_input_sub;
-    /* Publish the NED position */
     ros::Publisher position_pub;
     ros::Publisher velocity_pub;
     

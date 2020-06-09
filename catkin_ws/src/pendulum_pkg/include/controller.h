@@ -12,6 +12,7 @@ class controller {
                  float in_k3,
                  float in_k4,
                  float in_k5,
+                 float in_x3d,
                  float in_max_output);
     ~controller(void);
     void run (void);
@@ -28,16 +29,14 @@ class controller {
     ros::NodeHandle nh;
     ros::Subscriber position_sub;
     ros::Subscriber velocity_sub;
-    
-    /* Publish the NED position */
     ros::Publisher force_output_pub;
     
     std_msgs::Float64 Force_msg;
 
 
     float k1, k2, k3, k4, k5;
-    float x1, x2, x3, x4, x3i;
-    float F, max_F;
+    float x1, x2, x3, x4, x3i, x3d;
+    float Fd, F, max_F;
 
     ros::Time LastTimestamp;
     double dt;

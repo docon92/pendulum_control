@@ -13,14 +13,14 @@ int main(int argc, char* argv[])
 	ros::init(argc, argv, "pendulum_node");
 	ros::NodeHandle NodeHandle;
     
-    float theta_default = 0.0;
+    float theta_default = 0.1;
     float theta_0, x_0, m, M, l, max_disturbance, sim_rate;
     float x_default = 0.0;
     float l_default = 1.0;
-    float m_default = 2.0;
-    float M_default = 3.0;
+    float m_default = 1.0;
+    float M_default = 5.0;
     float max_disturbance_default = 10.0;
-    float sim_rate_default = 10.0;
+    float sim_rate_default = 100.0;
 
     NodeHandle.param("theta_0", theta_0,theta_default);
 	NodeHandle.param("x_0", x_0, x_default);
