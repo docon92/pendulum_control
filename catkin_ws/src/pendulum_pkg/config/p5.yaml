@@ -8,21 +8,21 @@ k4: -26.1364
 k5: 10.0
 
 max_F: 10.0  # (N)
-x3d: 0.0  # (m)
+x3d: 4.0  # (m)
 
 ## System Configs
 
 # Initial Conditions
 
 theta_0: 0.0  # (rad)
-x_0: 0.0  # (m)
+x_0: 4.0  # (m)
 
 ## System Definition
 
 l: 1.0  # (m)
 m: 1.0  # (kg)
 M: 5.0  # (kg)
-max_disturbance: 0.0  # (N)
+max_disturbance: 1.0  # (rad/sec^2)
 
 ## simulation_configs
 ctrl_rate: 40.0 # (Hz)

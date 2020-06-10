@@ -1,22 +1,41 @@
 #include "pendulum.h"
 
- pendulum::pendulum(  ros::NodeHandle& In_nh,
-                      float theta_0,
-                      float x_0,
-                      float length,
-                      float m_pendulum,
-                      float M_cart,
-                      float max_dist)
+ pendulum::pendulum(ros::NodeHandle& In_nh)
+{
+    nh = In_nh;
+
+    force_input_sub =
+    nh.subscribe<std_msgs::Float64>("controller/output_force", 5, &pendulum::handle_force_input,this);
+    position_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/position", 5);
+    velocity_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/velocity", 5);
+
+    init(nh);
+
+
+}
+
+ pendulum::~pendulum(){}
+
+void pendulum::init (ros::NodeHandle& In_nh)
 {
 
+    float theta_default = 0.0;
+    float theta_0, x_0;
+    float x_default = 0.0;
+    float l_default = 1.0;
+    float m_default = 1.0;
+    float M_default = 5.0;
+    float max_disturbance_default = 10.0;
+
+    In_nh.param("theta_0", theta_0,theta_default);
+	  In_nh.param("x_0", x_0, x_default);
+	  In_nh.param("l", l, l_default);
+	  In_nh.param("m", m, m_default);
+    In_nh.param("M", M, M_default);
+    In_nh.param("max_disturbance", max_disturbance, max_disturbance_default);
+
+
   float g = 9.807;
-  nh = In_nh;
-
-  force_input_sub =
-    nh.subscribe<std_msgs::Float64>("controller/output_force", 5, &pendulum::handle_force_input,this);
-  position_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/position", 5);
-  velocity_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/velocity", 5);
-
 
   x1 = theta_0;
   x2 = 0.0;
@@ -27,9 +46,9 @@
   delta_x3 = 0.0;
   delta_x4 = 0.0;
   
-  l=length;
-  m = m_pendulum;
-  M = M_cart;
+  // l=length;
+  // m = m_pendulum;
+  // M = M_cart;
   
   LastTimestamp = ros::Time::now();
   dt = 0.0; 
@@ -40,14 +59,12 @@
   c4 = 1.0/M;
 
   F = 0.0;
-  max_disturbance = max_dist;
+  // max_disturbance = max_dist;
   disturbance = 0.0;
   srand (static_cast <unsigned> (ros::Time::now().toSec()));
   //srand (static_cast <unsigned> (time(0)));
   ROS_INFO("Initialized a pendulum!");
 }
-
- pendulum::~pendulum(){}
 
 void pendulum::run (void)
 {
@@ -59,6 +76,8 @@ void pendulum::handle_force_input (const std_msgs::Float64::ConstPtr& new_force_
 {
   F = new_force_input->data;
 }
+
+
 
 /// Calclulate a random disturbance. Outputs a random float between -max_disturbance and + max_disturbance
 /// rand() is initialized in the constructor
@@ -75,11 +94,11 @@ void pendulum::step( void )
   dt = time_temp.toSec();
   //ROS_INFO("dt is: %f seconds",dt);
 
-  u = F + disturbance;
+  u = F;
   
 
   delta_x1 = x2*dt;
-  delta_x2 = (c1*x1+c3*u)*dt;
+  delta_x2 = (c1*x1+c3*u + disturbance)*dt;
   delta_x3 = (x4)*dt;
   delta_x4 = (c2*x1+c4*u)*dt;
 
@@ -99,5 +118,10 @@ void pendulum::step( void )
 
   LastTimestamp = ros::Time::now();
   //ROS_INFO("Angle is: %f", x1);
+
+}
+
+void pendulum::wait (void)
+{
 
 }
