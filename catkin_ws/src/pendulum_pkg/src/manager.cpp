@@ -12,6 +12,12 @@
 void manager::init ()
 {
   RUN_ENABLE = 1;
+  PENDULUM_STOP = 0;
+  pendulum_stop_msg.data = PENDULUM_STOP;
+  x_neighbour_1 = 1.0E9;
+  x_neighbour_2 = 1.0E9;
+  x = 0.0;
+  
   dist_n1 = 1.0E9;
   dist_n2 = 1.0E9;
   LastTimestamp = ros::Time::now();
@@ -22,17 +28,14 @@ void manager::init ()
 
 void manager::run (void)
 {
-  //ROS_INFO("running manager!");
-  //manager::step();
-  dist_n1 = x-x_neighbour_1;
-  dist_n2 = x-x_neighbour_2;
-  ROS_INFO("distances: %f, %f", x_neighbour_1,x_neighbour_2);
+
+  manager::step();
 
 }
 
 void manager::handle_sim_enable (const std_msgs::Int32::ConstPtr& new_sim_enable)
 {
-
+  RUN_ENABLE = new_sim_enable->data;
 }
 
 void manager::handle_neighbour_1_pos (const geometry_msgs::Pose2D::ConstPtr& new_neighbour_pos)
@@ -54,14 +57,17 @@ void manager::handle_position (const geometry_msgs::Pose2D::ConstPtr& new_positi
 
 void manager::step( void )
 {
-  // ros::Duration time_temp = ros::Time::now() - LastTimestamp;
-  // dt = time_temp.toSec();
- 
-	// position_pub.publish(position_msg);
-	// velocity_pub.publish(velocity_msg);
-
-  // LastTimestamp = ros::Time::now();
-  // //ROS_INFO("Angle is: %f", x1);
+    //ROS_INFO("running manager!");
+  dist_n1 = x-x_neighbour_1;
+  dist_n2 = x-x_neighbour_2;
+  ROS_INFO("distances: %f, %f", dist_n1,dist_n2);
+  if(abs(dist_n1)<distance_threshold || abs(dist_n2)<distance_threshold )
+  {
+    ROS_INFO("Pendulum is too close!");
+    PENDULUM_STOP = 1;
+    pendulum_stop_msg.data = PENDULUM_STOP;
+  }
+	status_pub.publish(pendulum_stop_msg);
 
 }
 
@@ -74,9 +80,11 @@ void manager::connect_to_neighbours(void)
 {
   
 
-  std::string def = "none";
+  std::string def = "VOID";
+  float distance_threshold_default = 0.8;
   nh.param("neighbour_1", neighbour_1,def);
   nh.param("neighbour_2", neighbour_2, def);
+  nh.param("distance_threshold", distance_threshold, distance_threshold_default);
 	
   ROS_INFO("neighbour_1 is: %s", neighbour_1.c_str());
   ROS_INFO("neighbour_2 is: %s", neighbour_2.c_str());
@@ -111,6 +119,6 @@ void manager::connect_to_neighbours(void)
 
   position_sub = nh.subscribe<geometry_msgs::Pose2D>("pendulum/position", 5, &manager::handle_position,this);
   stop_sim_sub = nh.subscribe<std_msgs::Int32>("/sim_enable", 5, &manager::handle_sim_enable,this);
-  status_pub = nh.advertise<std_msgs::Int32>("manager/run_enable", 5);
+  status_pub = nh.advertise<std_msgs::Int32>("manager/stop_pendulum", 5);
   
 }

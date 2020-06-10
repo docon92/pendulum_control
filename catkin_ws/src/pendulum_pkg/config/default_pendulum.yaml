@@ -22,8 +22,12 @@ x_0: 0.0  # (m)
 l: 1.0  # (m)
 m: 1.0  # (kg)
 M: 5.0  # (kg)
-max_disturbance: 0.0  # (N)
+max_disturbance: 1.0  # (rad/sec^2)
 
 ## simulation_configs
 ctrl_rate: 40.0 # (Hz)
 sim_rate: 100.0 # (Hz)
+manager_rate: 5.0 # (Hz)
+
+neighbour_1: "VOID"
+neighbour_2: "VOID"

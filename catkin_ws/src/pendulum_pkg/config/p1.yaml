@@ -28,5 +28,8 @@ max_disturbance: 1.0  # (rad/sec^2)
 ctrl_rate: 40.0 # (Hz)
 sim_rate: 100.0 # (Hz)
 
+
+# manager configs
 neighbour_1: "p2"
 neighbour_2: "VOID"
+distsance_threshold: 0.5

@@ -17,6 +17,8 @@ geometry_msgs/Pose2D.h
 /home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/include/geometry_msgs/Pose2D.h
 string
 -
+cstdlib
+-
 
 /home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/src/manager.cpp
 manager.h

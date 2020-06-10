@@ -3,6 +3,7 @@
 #include "std_msgs/Int32.h"
 #include "geometry_msgs/Pose2D.h"
 #include <string>
+#include <cstdlib> 
 
 class manager {
 
@@ -31,14 +32,14 @@ class manager {
     ros::Subscriber stop_sim_sub;
     ros::Publisher status_pub;
     
-    std_msgs::Int32 stop_count_msg;
+    std_msgs::Int32 pendulum_stop_msg;
     std::string neighbour_1;
     std::string neighbour_2;
 
     float x_neighbour_1,x_neighbour_2, x;
-    int RUN_ENABLE;
+    float dist_n1, dist_n2, distance_threshold;
+    int RUN_ENABLE, PENDULUM_STOP;
 
-    float dist_n1, dist_n2;
 
     ros::Time LastTimestamp;
     double dt;
