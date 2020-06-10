@@ -5,11 +5,13 @@
         <rosparam command="load" file="$(find pendulum_pkg)/config/p1.yaml" />
         <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum" output="screen"/>
         <node pkg="pendulum_pkg" type="controller_node" name="controller" output="screen"/>
+        <node pkg="pendulum_pkg" type="manager_node" name="manager" output="screen"/>
     </group>
 
     <group ns="p2">
         <rosparam command="load" file="$(find pendulum_pkg)/config/p2.yaml" />
         <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum" output="screen"/>
         <node pkg="pendulum_pkg" type="controller_node" name="controller" output="screen"/>
+        <node pkg="pendulum_pkg" type="manager_node" name="manager" output="screen"/>
     </group>
 </launch>

@@ -11,22 +11,7 @@
 
 void manager::init ()
 {
-
-    float theta_default = 0.0;
-    float theta_0, x_0;
-    float x_default = 0.0;
-    float l_default = 1.0;
-    float m_default = 1.0;
-    float M_default = 5.0;
-    float max_disturbance_default = 10.0;
-
-    nh.param("theta_0", theta_0,theta_default);
-	  nh.param("x_0", x_0, x_default);
-	  nh.param("l", l, l_default);
-	  nh.param("m", m, m_default);
-    nh.param("M", M, M_default);
-    nh.param("max_disturbance", max_disturbance, max_disturbance_default);
-  
+  RUN_ENABLE = 1;
   LastTimestamp = ros::Time::now();
   dt = 0.0; 
 
@@ -35,7 +20,13 @@ void manager::init ()
 
 void manager::run (void)
 {
-  manager::step();
+  ROS_INFO("running manager!");
+  //manager::step();
+}
+
+void manager::handle_sim_enable (const std_msgs::Int32::ConstPtr& new_sim_enable)
+{
+
 }
 
 void manager::handle_neighbour_1_pos (const geometry_msgs::Pose2D::ConstPtr& new_neighbour_pos)
@@ -48,16 +39,29 @@ void manager::handle_neighbour_2_pos (const geometry_msgs::Pose2D::ConstPtr& new
   
 }
 
+void manager::handle_position (const geometry_msgs::Pose2D::ConstPtr& new_position)
+{
+
+//   x1 = new_position->theta;
+//   x3 = new_position->x;
+
+//  if (!CONTROLLER_INIT)
+//     {
+//        x3_0 = x3;
+//        CONTROLLER_INIT=true; 
+//     }
+}
+
 void manager::step( void )
 {
-  ros::Duration time_temp = ros::Time::now() - LastTimestamp;
-  dt = time_temp.toSec();
+  // ros::Duration time_temp = ros::Time::now() - LastTimestamp;
+  // dt = time_temp.toSec();
  
-	position_pub.publish(position_msg);
-	velocity_pub.publish(velocity_msg);
+	// position_pub.publish(position_msg);
+	// velocity_pub.publish(velocity_msg);
 
-  LastTimestamp = ros::Time::now();
-  //ROS_INFO("Angle is: %f", x1);
+  // LastTimestamp = ros::Time::now();
+  // //ROS_INFO("Angle is: %f", x1);
 
 }
 
@@ -79,13 +83,11 @@ void manager::connect_to_neighbours(void)
   {
     std::string topic_name =  "/" + neighbour_1 + "/pendulum/position";
     neighbour_1_sub = nh.subscribe<geometry_msgs::Pose2D>(
-      "controller/output_force", 5, &manager::handle_neighbour_1_pos,this);
+      topic_name, 5, &manager::handle_neighbour_1_pos,this);
+
+      ROS_INFO("sub topic is: %s", topic_name.c_str());
   }
 
-
-  position_sub = nh.subscribe<geometry_msgs::Pose2D>("pendulum/position", 5, &controller::handle_position,this);
-
-}
 
  if(neighbour_2 == "VOID")
   {
@@ -94,11 +96,13 @@ void manager::connect_to_neighbours(void)
   else
   {
     std::string topic_name = "/" + neighbour_2 + "/pendulum/position";
-    neighbour_1_sub = nh.subscribe<geometry_msgs::Pose2D>(
-      "controller/output_force", 5, &manager::handle_neighbour_1_pos,this);
+    neighbour_2_sub = nh.subscribe<geometry_msgs::Pose2D>(
+      topic_name, 5, &manager::handle_neighbour_1_pos,this);
   }
 
 
-  position_sub = nh.subscribe<geometry_msgs::Pose2D>("pendulum/position", 5, &controller::handle_position,this);
-
+  position_sub = nh.subscribe<geometry_msgs::Pose2D>("pendulum/position", 5, &manager::handle_position,this);
+  stop_sim_sub = nh.subscribe<std_msgs::Int32>("/sim_enable", 5, &manager::handle_sim_enable,this);
+  status_pub = nh.advertise<std_msgs::Int32>("manager/run_enable", 5);
+  
 }

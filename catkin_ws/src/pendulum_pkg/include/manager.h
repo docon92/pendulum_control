@@ -20,6 +20,8 @@ class manager {
     void connect_to_neighbours(void);
     void handle_neighbour_1_pos (const geometry_msgs::Pose2D::ConstPtr& new_neighbour_pos);
     void handle_neighbour_2_pos (const geometry_msgs::Pose2D::ConstPtr& new_neighbour_pos);
+    void handle_sim_enable (const std_msgs::Int32::ConstPtr& new_sim_enable);
+    void handle_position (const geometry_msgs::Pose2D::ConstPtr& new_position);
     void wait (void);
 
     ros::NodeHandle nh;
@@ -34,7 +36,7 @@ class manager {
     std::string neighbour_2;
 
     float x_neighbour_1,x_neighbour_2, x;
-    int stop_count;
+    int RUN_ENABLE;
 
     ros::Time LastTimestamp;
     double dt;

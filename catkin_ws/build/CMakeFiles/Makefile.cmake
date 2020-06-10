@@ -264,6 +264,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "gtest/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake"
   "gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
   "gtest/googlemock/gtest/CMakeFiles/gtest.dir/DependInfo.cmake"
+  "pendulum_pkg/CMakeFiles/manager_node.dir/DependInfo.cmake"
   "pendulum_pkg/CMakeFiles/pendulum_node.dir/DependInfo.cmake"
   "pendulum_pkg/CMakeFiles/geometry_msgs_generate_messages_py.dir/DependInfo.cmake"
   "pendulum_pkg/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/DependInfo.cmake"

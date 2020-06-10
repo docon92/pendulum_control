@@ -38,6 +38,7 @@
 /home/hs/Documents/pendulum_control/catkin_ws/build/pendulum_pkg/CMakeFiles/install/strip.dir
 /home/hs/Documents/pendulum_control/catkin_ws/build/pendulum_pkg/CMakeFiles/install/local.dir
 /home/hs/Documents/pendulum_control/catkin_ws/build/pendulum_pkg/CMakeFiles/rebuild_cache.dir
+/home/hs/Documents/pendulum_control/catkin_ws/build/pendulum_pkg/CMakeFiles/manager_node.dir
 /home/hs/Documents/pendulum_control/catkin_ws/build/pendulum_pkg/CMakeFiles/pendulum_node.dir
 /home/hs/Documents/pendulum_control/catkin_ws/build/pendulum_pkg/CMakeFiles/geometry_msgs_generate_messages_py.dir
 /home/hs/Documents/pendulum_control/catkin_ws/build/pendulum_pkg/CMakeFiles/test.dir

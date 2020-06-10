@@ -285,6 +285,19 @@ gtest/fast:
 .PHONY : gtest/fast
 
 #=============================================================================
+# Target rules for targets named manager_node
+
+# Build rule for target.
+manager_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 manager_node
+.PHONY : manager_node
+
+# fast build rule for target.
+manager_node/fast:
+	$(MAKE) -f pendulum_pkg/CMakeFiles/manager_node.dir/build.make pendulum_pkg/CMakeFiles/manager_node.dir/build
+.PHONY : manager_node/fast
+
+#=============================================================================
 # Target rules for targets named pendulum_node
 
 # Build rule for target.
@@ -605,6 +618,7 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
+	@echo "... manager_node"
 	@echo "... pendulum_node"
 	@echo "... geometry_msgs_generate_messages_py"
 	@echo "... geometry_msgs_generate_messages_lisp"

@@ -168,6 +168,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+pendulum_pkg/CMakeFiles/manager_node.dir/rule:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pendulum_pkg/CMakeFiles/manager_node.dir/rule
+.PHONY : pendulum_pkg/CMakeFiles/manager_node.dir/rule
+
+# Convenience name for target.
+manager_node: pendulum_pkg/CMakeFiles/manager_node.dir/rule
+
+.PHONY : manager_node
+
+# fast build rule for target.
+manager_node/fast:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/manager_node.dir/build.make pendulum_pkg/CMakeFiles/manager_node.dir/build
+.PHONY : manager_node/fast
+
+# Convenience name for target.
 pendulum_pkg/CMakeFiles/pendulum_node.dir/rule:
 	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 pendulum_pkg/CMakeFiles/pendulum_node.dir/rule
 .PHONY : pendulum_pkg/CMakeFiles/pendulum_node.dir/rule
@@ -566,6 +581,60 @@ src/controller_node.cpp.s:
 	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/controller_node.dir/build.make pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.s
 .PHONY : src/controller_node.cpp.s
 
+src/manager.o: src/manager.cpp.o
+
+.PHONY : src/manager.o
+
+# target to build an object file
+src/manager.cpp.o:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/manager_node.dir/build.make pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.o
+.PHONY : src/manager.cpp.o
+
+src/manager.i: src/manager.cpp.i
+
+.PHONY : src/manager.i
+
+# target to preprocess a source file
+src/manager.cpp.i:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/manager_node.dir/build.make pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.i
+.PHONY : src/manager.cpp.i
+
+src/manager.s: src/manager.cpp.s
+
+.PHONY : src/manager.s
+
+# target to generate assembly for a file
+src/manager.cpp.s:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/manager_node.dir/build.make pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.s
+.PHONY : src/manager.cpp.s
+
+src/manager_node.o: src/manager_node.cpp.o
+
+.PHONY : src/manager_node.o
+
+# target to build an object file
+src/manager_node.cpp.o:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/manager_node.dir/build.make pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.o
+.PHONY : src/manager_node.cpp.o
+
+src/manager_node.i: src/manager_node.cpp.i
+
+.PHONY : src/manager_node.i
+
+# target to preprocess a source file
+src/manager_node.cpp.i:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/manager_node.dir/build.make pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.i
+.PHONY : src/manager_node.cpp.i
+
+src/manager_node.s: src/manager_node.cpp.s
+
+.PHONY : src/manager_node.s
+
+# target to generate assembly for a file
+src/manager_node.cpp.s:
+	cd /home/hs/Documents/pendulum_control/catkin_ws/build && $(MAKE) -f pendulum_pkg/CMakeFiles/manager_node.dir/build.make pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.s
+.PHONY : src/manager_node.cpp.s
+
 src/pendulum.o: src/pendulum.cpp.o
 
 .PHONY : src/pendulum.o
@@ -629,6 +698,7 @@ help:
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... rebuild_cache"
+	@echo "... manager_node"
 	@echo "... pendulum_node"
 	@echo "... geometry_msgs_generate_messages_py"
 	@echo "... test"
@@ -662,6 +732,12 @@ help:
 	@echo "... src/controller_node.o"
 	@echo "... src/controller_node.i"
 	@echo "... src/controller_node.s"
+	@echo "... src/manager.o"
+	@echo "... src/manager.i"
+	@echo "... src/manager.s"
+	@echo "... src/manager_node.o"
+	@echo "... src/manager_node.i"
+	@echo "... src/manager_node.s"
 	@echo "... src/pendulum.o"
 	@echo "... src/pendulum.i"
 	@echo "... src/pendulum.s"

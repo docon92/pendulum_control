@@ -148,7 +148,10 @@ include_directories(
   src/controller.cpp
 )
 
-
+ add_executable(manager_node 
+  src/manager_node.cpp
+  src/manager.cpp
+)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -161,6 +164,9 @@ include_directories(
 
 add_dependencies(pendulum_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(controller_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(manager_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
 
 #add_dependencies(pendulum_node ${catkin_EXPORTED_TARGETS})
 
@@ -174,6 +180,10 @@ target_link_libraries(pendulum_node
 )
 
 target_link_libraries(controller_node 
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(manager_node 
   ${catkin_LIBRARIES}
 )
 
