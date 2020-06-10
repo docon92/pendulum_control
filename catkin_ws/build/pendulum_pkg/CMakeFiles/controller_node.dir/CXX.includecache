@@ -11,6 +11,8 @@ ros/ros.h
 -
 std_msgs/Float64.h
 /home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/include/std_msgs/Float64.h
+std_msgs/Int32.h
+/home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/include/std_msgs/Int32.h
 geometry_msgs/Pose2D.h
 /home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/include/geometry_msgs/Pose2D.h
 
@@ -687,6 +689,22 @@ ros/forwards.h
 /opt/ros/melodic/include/rosconsole/macros_generated.h
 
 /opt/ros/melodic/include/std_msgs/Float64.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/opt/ros/melodic/include/std_msgs/Int32.h
 string
 -
 vector

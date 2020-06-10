@@ -23,7 +23,7 @@ void manager::init ()
   LastTimestamp = ros::Time::now();
   dt = 0.0; 
 
-  ROS_INFO("Initialized a manager!");
+  //ROS_INFO("Initialized a manager!");
 }
 
 void manager::run (void)
@@ -60,10 +60,10 @@ void manager::step( void )
     //ROS_INFO("running manager!");
   dist_n1 = x-x_neighbour_1;
   dist_n2 = x-x_neighbour_2;
-  ROS_INFO("distances: %f, %f", dist_n1,dist_n2);
+  //ROS_INFO("distances: %f, %f", dist_n1,dist_n2);
   if(abs(dist_n1)<distance_threshold || abs(dist_n2)<distance_threshold )
   {
-    ROS_INFO("Pendulum is too close!");
+    //ROS_INFO("Pendulum is too close!");
     PENDULUM_STOP = 1;
     pendulum_stop_msg.data = PENDULUM_STOP;
   }
@@ -86,8 +86,8 @@ void manager::connect_to_neighbours(void)
   nh.param("neighbour_2", neighbour_2, def);
   nh.param("distance_threshold", distance_threshold, distance_threshold_default);
 	
-  ROS_INFO("neighbour_1 is: %s", neighbour_1.c_str());
-  ROS_INFO("neighbour_2 is: %s", neighbour_2.c_str());
+  //ROS_INFO("neighbour_1 is: %s", neighbour_1.c_str());
+  //ROS_INFO("neighbour_2 is: %s", neighbour_2.c_str());
 
 
   if(neighbour_1 == "VOID")

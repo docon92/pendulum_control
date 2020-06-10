@@ -7,7 +7,7 @@ k3: -22.8654
 k4: -26.1364
 k5: 10.0
 
-max_F: 10.0  # (N)
+max_F: 100.0  # (N)
 x3d: 2.0  # (m)
 
 ## System Configs
@@ -15,19 +15,21 @@ x3d: 2.0  # (m)
 # Initial Conditions
 
 theta_0: 0.0  # (rad)
-x_0: 2.0  # (m)
+x_0: 4.0  # (m)
 
 ## System Definition
 
 l: 1.0  # (m)
 m: 1.0  # (kg)
 M: 5.0  # (kg)
-max_disturbance: 1.0  # (rad/sec^2)
+max_disturbance: 1.5  # (rad/sec^2)
 
 ## simulation_configs
-ctrl_rate: 40.0 # (Hz)
+ctrl_rate: 60.0 # (Hz)
 sim_rate: 100.0 # (Hz)
+
+rand_seed: 3
 
 neighbour_1: "p2"
 neighbour_2: "VOID"
-distance_threshold: 0.0
+distance_threshold: 0.7

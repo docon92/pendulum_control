@@ -61,6 +61,7 @@ pendulum_pkg/CMakeFiles/controller_node.dir/src/controller.cpp.o: /opt/ros/melod
 pendulum_pkg/CMakeFiles/controller_node.dir/src/controller.cpp.o: /opt/ros/melodic/include/ros/wall_timer_options.h
 pendulum_pkg/CMakeFiles/controller_node.dir/src/controller.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
 pendulum_pkg/CMakeFiles/controller_node.dir/src/controller.cpp.o: /opt/ros/melodic/include/std_msgs/Float64.h
+pendulum_pkg/CMakeFiles/controller_node.dir/src/controller.cpp.o: /opt/ros/melodic/include/std_msgs/Int32.h
 pendulum_pkg/CMakeFiles/controller_node.dir/src/controller.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 pendulum_pkg/CMakeFiles/controller_node.dir/src/controller.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h
 
@@ -124,6 +125,7 @@ pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.o: /opt/ros/
 pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.o: /opt/ros/melodic/include/ros/wall_timer_options.h
 pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
 pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.o: /opt/ros/melodic/include/std_msgs/Float64.h
+pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.o: /opt/ros/melodic/include/std_msgs/Int32.h
 pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 pendulum_pkg/CMakeFiles/controller_node.dir/src/controller_node.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h
 

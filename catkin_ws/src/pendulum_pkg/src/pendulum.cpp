@@ -7,13 +7,16 @@
     nh = In_nh;
 
 
-    force_input_sub =
-    nh.subscribe<std_msgs::Float64>("controller/output_force", 5, &pendulum::handle_force_input,this);
+
+    run_enable_sub = nh.subscribe<std_msgs::Int32>("/sim_enable", 5, &pendulum::handle_run_enable,this); 
+    pendulum_stop_sub = nh.subscribe<std_msgs::Int32>("manager/stop_pendulum", 5, &pendulum::handle_pendulum_stop,this); 
+    force_input_sub = nh.subscribe<std_msgs::Float64>("controller/output_force", 5, &pendulum::handle_force_input,this);
     position_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/position", 5);
     velocity_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/velocity", 5);
 
         
-
+    RUN_ENABLE = 1;
+    PENDULUM_STOP = 0;
     init();
 
 
@@ -31,6 +34,7 @@ void pendulum::init (void)
     float m_default = 1.0;
     float M_default = 5.0;
     float max_disturbance_default = 10.0;
+    int rand_seed_default = 2;
 
     nh.param("theta_0", theta_0,theta_default);
 	  nh.param("x_0", x_0, x_default);
@@ -38,6 +42,7 @@ void pendulum::init (void)
 	  nh.param("m", m, m_default);
     nh.param("M", M, M_default);
     nh.param("max_disturbance", max_disturbance, max_disturbance_default);
+    nh.param("rand_seed", rand_seed, rand_seed_default);
 
 
   float g = 9.807;
@@ -61,7 +66,8 @@ void pendulum::init (void)
   c4 = 1.0/M;
   F = 0.0;
   disturbance = 0.0;
-  srand (static_cast <unsigned> (ros::Time::now().toSec()));
+  srand(static_cast<unsigned> (rand_seed));
+  
   ROS_INFO("Initialized a pendulum!");
 }
 
@@ -69,8 +75,21 @@ void pendulum::run (void)
 {
       while(ros::ok())
 	{
-        pendulum::calculate_disturbance();
-        pendulum::step();
+
+        if(RUN_ENABLE && !PENDULUM_STOP)
+        {
+          pendulum::calculate_disturbance();
+          pendulum::step();
+        }
+        else if (RUN_ENABLE)
+        {
+
+        }
+        else
+        {
+          
+        }
+
         pendulum::broadcast_state();
 
         ros::spinOnce();
@@ -84,7 +103,14 @@ void pendulum::handle_force_input (const std_msgs::Float64::ConstPtr& new_force_
   F = new_force_input->data;
 }
 
-
+void pendulum::handle_run_enable (const std_msgs::Int32::ConstPtr& new_flag)
+{
+  RUN_ENABLE = new_flag->data;
+}
+void pendulum::handle_pendulum_stop (const std_msgs::Int32::ConstPtr& new_flag)
+{
+  PENDULUM_STOP = new_flag->data;
+}
 
 /// Calclulate a random disturbance. Outputs a random float between -max_disturbance and + max_disturbance
 /// rand() is initialized in the constructor
