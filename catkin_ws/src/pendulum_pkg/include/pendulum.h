@@ -7,17 +7,19 @@ class pendulum {
 
   public:
 
-    pendulum(ros::NodeHandle& In_nh);
+    pendulum(ros::NodeHandle& In_nh, float rate);
     ~pendulum(void);
     void run (void);
   
 
   private:
 
-    void init (ros::NodeHandle& In_nh);
+    void init (void);
     void step( void );
     void calculate_disturbance (void);
     void handle_force_input (const std_msgs::Float64::ConstPtr& new_force_input);
+    void broadcast_state( void );
+    
     void wait (void);
 
     ros::NodeHandle nh;
@@ -26,6 +28,7 @@ class pendulum {
     ros::Subscriber neighbour_2_sub;
     ros::Publisher position_pub;
     ros::Publisher velocity_pub;
+    ros::Rate LoopRate;
     
     geometry_msgs::Pose2D velocity_msg;
     geometry_msgs::Pose2D position_msg;
@@ -39,6 +42,9 @@ class pendulum {
     float M;
     float u, F, disturbance, max_disturbance;
     float c1,c2,c3,c4;
+    float sim_rate;
+    float sim_rate_default;
+
 
     ros::Time LastTimestamp;
     double dt;

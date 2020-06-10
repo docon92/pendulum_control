@@ -30,3 +30,5 @@ sim_rate: 100.0 # (Hz)
 
 neighbour_1: "p1"
 neighbour_2: "p3"
+
+distance_threshold: 0.0

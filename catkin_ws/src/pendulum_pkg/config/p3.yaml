@@ -29,4 +29,5 @@ ctrl_rate: 40.0 # (Hz)
 sim_rate: 100.0 # (Hz)
 
 neighbour_1: "p2"
-neighbour_2: "p4"
+neighbour_2: "VOID"
+distance_threshold: 0.0
