@@ -66,8 +66,10 @@ void pendulum::init (void)
   c4 = 1.0/M;
   F = 0.0;
   disturbance = 0.0;
-  srand(static_cast<unsigned> (rand_seed));
-  
+  time_t t;
+  int seed = static_cast<unsigned> (time(&t))+rand_seed;
+  srand(seed);
+  ROS_INFO("using random seed: %d",seed);
   ROS_INFO("Initialized a pendulum!");
 }
 
