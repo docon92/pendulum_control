@@ -38,6 +38,8 @@ class manager {
     float x_neighbour_1,x_neighbour_2, x;
     int RUN_ENABLE;
 
+    float dist_n1, dist_n2;
+
     ros::Time LastTimestamp;
     double dt;
 

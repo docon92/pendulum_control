@@ -85,7 +85,7 @@ void pendulum::calculate_disturbance (void)
 {
   
   disturbance = -max_disturbance + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/(2*max_disturbance));
-  ROS_INFO("disturbance is: %f",disturbance);
+  //ROS_INFO("disturbance is: %f",disturbance);
 }
 
 void pendulum::step( void )

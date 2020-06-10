@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 	ros::NodeHandle NodeHandle;
     
     float manager_rate;
-    float manager_rate_default = 100.0;
+    float manager_rate_default = 3.0;
 
 
     NodeHandle.param("manager_rate", manager_rate, manager_rate_default);

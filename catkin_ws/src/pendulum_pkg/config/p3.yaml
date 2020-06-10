@@ -27,3 +27,6 @@ max_disturbance: 1.0  # (rad/sec^2)
 ## simulation_configs
 ctrl_rate: 40.0 # (Hz)
 sim_rate: 100.0 # (Hz)
+
+neighbour_1: "p2"
+neighbour_2: "p4"

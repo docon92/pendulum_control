@@ -12,6 +12,8 @@
 void manager::init ()
 {
   RUN_ENABLE = 1;
+  dist_n1 = 1.0E9;
+  dist_n2 = 1.0E9;
   LastTimestamp = ros::Time::now();
   dt = 0.0; 
 
@@ -20,8 +22,12 @@ void manager::init ()
 
 void manager::run (void)
 {
-  ROS_INFO("running manager!");
+  //ROS_INFO("running manager!");
   //manager::step();
+  dist_n1 = x-x_neighbour_1;
+  dist_n2 = x-x_neighbour_2;
+  ROS_INFO("distances: %f, %f", x_neighbour_1,x_neighbour_2);
+
 }
 
 void manager::handle_sim_enable (const std_msgs::Int32::ConstPtr& new_sim_enable)
@@ -31,25 +37,19 @@ void manager::handle_sim_enable (const std_msgs::Int32::ConstPtr& new_sim_enable
 
 void manager::handle_neighbour_1_pos (const geometry_msgs::Pose2D::ConstPtr& new_neighbour_pos)
 {
-  
+  //ROS_INFO("got neighbour 1 position!");
+  x_neighbour_1 = new_neighbour_pos->x;
 }
 
 void manager::handle_neighbour_2_pos (const geometry_msgs::Pose2D::ConstPtr& new_neighbour_pos)
 {
-  
+  //ROS_INFO("got neighbour 2 position!");
+  x_neighbour_2 = new_neighbour_pos->x;
 }
 
 void manager::handle_position (const geometry_msgs::Pose2D::ConstPtr& new_position)
 {
-
-//   x1 = new_position->theta;
-//   x3 = new_position->x;
-
-//  if (!CONTROLLER_INIT)
-//     {
-//        x3_0 = x3;
-//        CONTROLLER_INIT=true; 
-//     }
+  x = new_position->x;
 }
 
 void manager::step( void )
@@ -72,9 +72,16 @@ void manager::wait (void)
 
 void manager::connect_to_neighbours(void)
 {
-  nh.param("neighbour_1", neighbour_1);
-  nh.param("neighbour_2", neighbour_2);
+  
+
+  std::string def = "none";
+  nh.param("neighbour_1", neighbour_1,def);
+  nh.param("neighbour_2", neighbour_2, def);
 	
+  ROS_INFO("neighbour_1 is: %s", neighbour_1.c_str());
+  ROS_INFO("neighbour_2 is: %s", neighbour_2.c_str());
+
+
   if(neighbour_1 == "VOID")
   {
     ROS_INFO("This pendulum has no neighbour_1!");
@@ -85,7 +92,7 @@ void manager::connect_to_neighbours(void)
     neighbour_1_sub = nh.subscribe<geometry_msgs::Pose2D>(
       topic_name, 5, &manager::handle_neighbour_1_pos,this);
 
-      ROS_INFO("sub topic is: %s", topic_name.c_str());
+      ROS_INFO("nb 1 sub topic is: %s", topic_name.c_str());
   }
 
 
@@ -97,7 +104,8 @@ void manager::connect_to_neighbours(void)
   {
     std::string topic_name = "/" + neighbour_2 + "/pendulum/position";
     neighbour_2_sub = nh.subscribe<geometry_msgs::Pose2D>(
-      topic_name, 5, &manager::handle_neighbour_1_pos,this);
+      topic_name, 5, &manager::handle_neighbour_2_pos,this);
+    ROS_INFO("nb 2 sub topic is: %s", topic_name.c_str());
   }
 
 
