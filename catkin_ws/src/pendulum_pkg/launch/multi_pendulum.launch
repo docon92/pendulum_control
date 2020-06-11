@@ -36,4 +36,6 @@
         <node pkg="pendulum_pkg" type="manager_node" name="manager" output="screen"/>
     </group>
 
+
+    <node pkg="pendulum_pkg" type="overlord_node" name="overlord" output="screen"/>
 </launch>

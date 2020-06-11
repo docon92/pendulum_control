@@ -152,6 +152,10 @@ include_directories(
   src/manager_node.cpp
   src/manager.cpp
 )
+
+ add_executable(overlord_node 
+  src/overlord_node.cpp
+)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -187,6 +191,9 @@ target_link_libraries(manager_node
   ${catkin_LIBRARIES}
 )
 
+target_link_libraries(overlord_node 
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
