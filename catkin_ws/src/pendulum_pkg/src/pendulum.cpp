@@ -69,8 +69,8 @@ void pendulum::init (void)
   time_t t;
   int seed = static_cast<unsigned> (time(&t))+rand_seed;
   srand(seed);
-  ROS_INFO("using random seed: %d",seed);
-  ROS_INFO("Initialized a pendulum!");
+  //ROS_INFO("using random seed: %d",seed);
+  //ROS_INFO("Initialized a pendulum!");
 }
 
 void pendulum::run (void)
@@ -83,15 +83,11 @@ void pendulum::run (void)
           pendulum::calculate_disturbance();
           pendulum::step();
         }
-        else if (RUN_ENABLE)
+        else if (!RUN_ENABLE && PENDULUM_STOP)
         {
-
+            pendulum::init();
         }
-        else
-        {
           
-        }
-
         pendulum::broadcast_state();
 
         ros::spinOnce();

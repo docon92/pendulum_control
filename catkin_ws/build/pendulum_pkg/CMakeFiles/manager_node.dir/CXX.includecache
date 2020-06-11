@@ -19,6 +19,8 @@ string
 -
 cstdlib
 -
+time.h
+-
 
 /home/hs/Documents/pendulum_control/catkin_ws/src/pendulum_pkg/src/manager.cpp
 manager.h

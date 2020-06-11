@@ -162,7 +162,14 @@ int main(int argc, char* argv[])
     {
 
         if(stop_count==5) RUN_ENABLE=0;
-        ROS_INFO("stop_count is: %d ", stop_count);
+        if(restart_count==5)
+        {
+            RUN_ENABLE=1;
+            stop_count = 0;
+            restart_count = 0;
+            ROS_INFO("Restarting sim! ");
+        } 
+        //ROS_INFO("stop_count is: %d ", stop_count);
         sim_enable_msg.data = RUN_ENABLE;
         sim_enable_pub.publish(sim_enable_msg);
         ros::spinOnce();

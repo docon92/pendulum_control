@@ -1,8 +1,9 @@
 #include "manager.h"
 
- manager::manager(ros::NodeHandle& In_nh)
+ manager::manager(ros::NodeHandle& In_nh,float rate) : LoopRate(rate)
 {
     nh = In_nh;
+    RUN_ENABLE = 1;
     connect_to_neighbours();
     init();
 }
@@ -11,7 +12,7 @@
 
 void manager::init ()
 {
-  RUN_ENABLE = 1;
+
   PENDULUM_STOP = 0;
   pendulum_stop_msg.data = PENDULUM_STOP;
   x_neighbour_1 = 1.0E9;
@@ -20,8 +21,6 @@ void manager::init ()
   
   dist_n1 = 1.0E9;
   dist_n2 = 1.0E9;
-  LastTimestamp = ros::Time::now();
-  dt = 0.0; 
 
   //ROS_INFO("Initialized a manager!");
 }
@@ -29,9 +28,24 @@ void manager::init ()
 void manager::run (void)
 {
 
-  manager::step();
+  while(ros::ok())
+  {
+    if(RUN_ENABLE && !PENDULUM_STOP)
+    {
+      manager::step();
+    }
+    else if (!RUN_ENABLE && PENDULUM_STOP)
+    {
+      manager::wait();
+      manager::init();
+    }
 
+    status_pub.publish(pendulum_stop_msg);
+    ros::spinOnce();
+    LoopRate.sleep();
+  }
 }
+
 
 void manager::handle_sim_enable (const std_msgs::Int32::ConstPtr& new_sim_enable)
 {
@@ -67,12 +81,19 @@ void manager::step( void )
     PENDULUM_STOP = 1;
     pendulum_stop_msg.data = PENDULUM_STOP;
   }
-	status_pub.publish(pendulum_stop_msg);
+	//status_pub.publish(pendulum_stop_msg);
 
 }
 
 void manager::wait (void)
 {
+  time_t t;
+  int seed = static_cast<unsigned> (time(&t))+rand_seed;
+  srand(seed);
+  float max_sleep = 10.0;
+  float sleep_time = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/(max_sleep));
+  ROS_INFO("Waiting %f seconds to restart!",sleep_time);
+  ros::Duration(sleep_time).sleep();
 
 }
 
@@ -82,6 +103,8 @@ void manager::connect_to_neighbours(void)
 
   std::string def = "VOID";
   float distance_threshold_default = 0.8;
+  int rand_seed_default = 22;
+  nh.param("rand_seed", rand_seed, rand_seed_default);
   nh.param("neighbour_1", neighbour_1,def);
   nh.param("neighbour_2", neighbour_2, def);
   nh.param("distance_threshold", distance_threshold, distance_threshold_default);

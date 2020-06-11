@@ -4,12 +4,13 @@
 #include "geometry_msgs/Pose2D.h"
 #include <string>
 #include <cstdlib> 
+#include <time.h>
 
 class manager {
 
   public:
 
-    manager(ros::NodeHandle& In_nh);
+    manager(ros::NodeHandle& In_nh, float rate);
     ~manager(void);
     void run (void);
   
@@ -31,6 +32,7 @@ class manager {
     ros::Subscriber position_sub;
     ros::Subscriber stop_sim_sub;
     ros::Publisher status_pub;
+    ros::Rate LoopRate;
     
     std_msgs::Int32 pendulum_stop_msg;
     std::string neighbour_1;
@@ -39,6 +41,7 @@ class manager {
     float x_neighbour_1,x_neighbour_2, x;
     float dist_n1, dist_n2, distance_threshold;
     int RUN_ENABLE, PENDULUM_STOP;
+    int rand_seed;
 
 
     ros::Time LastTimestamp;

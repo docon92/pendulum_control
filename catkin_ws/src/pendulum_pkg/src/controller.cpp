@@ -56,17 +56,16 @@ void controller::run (void)
     if(RUN_ENABLE && !PENDULUM_STOP)
         {
           controller::step();
-
+          force_output_pub.publish(Force_msg);
         }
-        else if (RUN_ENABLE)
+        else if (!RUN_ENABLE && PENDULUM_STOP)
         {
-
+            x3i = 0.0;
+            F = 0.0;
+            force_output_pub.publish(Force_msg);
         }
-        else
-        {
           
-        }
-        force_output_pub.publish(Force_msg);  
+  
         ros::spinOnce();
         LoopRate.sleep();
     }
