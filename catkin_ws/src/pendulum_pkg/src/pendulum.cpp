@@ -55,6 +55,11 @@ void pendulum::init (void)
   delta_x2 = 0.0;
   delta_x3 = 0.0;
   delta_x4 = 0.0;
+
+  position_msg.theta = x1;
+  position_msg.x = x3;
+  velocity_msg.theta = x2;
+  velocity_msg.x =x4;
   
   
   LastTimestamp = ros::Time::now();
@@ -89,7 +94,7 @@ void pendulum::run (void)
         }
           
         pendulum::broadcast_state();
-
+        LastTimestamp = ros::Time::now();
         ros::spinOnce();
         LoopRate.sleep();
   }
@@ -143,7 +148,7 @@ void pendulum::step( void )
   velocity_msg.theta = x2;
   velocity_msg.x =x4;
   
-  LastTimestamp = ros::Time::now();
+
   //ROS_INFO("Angle is: %f", x1);
 
 }

@@ -22,7 +22,7 @@ x_0: 2.0  # (m)
 l: 1.0  # (m)
 m: 1.0  # (kg)
 M: 5.0  # (kg)
-max_disturbance: 2.2  # (rad/sec^2)
+max_disturbance: 0.5  # (rad/sec^2)
 
 ## simulation_configs
 ctrl_rate: 60.0 # (Hz)
@@ -33,4 +33,4 @@ rand_seed: 3
 
 neighbour_1: "p2"
 neighbour_2: "VOID"
-distance_threshold: 0.9
+distance_threshold: 0.98

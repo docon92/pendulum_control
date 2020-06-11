@@ -123,7 +123,7 @@ void handle_p5_stop (const std_msgs::Int32::ConstPtr& new_stop_msg)
     
 }
 
-int main(int argc, char* argv[])
+void init_overlord_flags(void)
 {
     RUN_ENABLE = 1;
     stop_count = 0;
@@ -139,6 +139,14 @@ int main(int argc, char* argv[])
     P4_RESTART = 0;
     P5_RESTART = 0;
     pendulum_count = 5;
+}
+
+int main(int argc, char* argv[])
+{
+
+
+
+    init_overlord_flags();
     /* Init "ROS" */
 	ros::init(argc, argv, "overlord_node");
 	ros::NodeHandle NodeHandle;
@@ -164,12 +172,11 @@ int main(int argc, char* argv[])
         if(stop_count==5) RUN_ENABLE=0;
         if(restart_count==5)
         {
-            RUN_ENABLE=1;
-            stop_count = 0;
-            restart_count = 0;
+            init_overlord_flags();
             ROS_INFO("Restarting sim! ");
         } 
-        //ROS_INFO("stop_count is: %d ", stop_count);
+        ROS_INFO("restart_count is: %d, stop_count: %d ", restart_count,stop_count);
+
         sim_enable_msg.data = RUN_ENABLE;
         sim_enable_pub.publish(sim_enable_msg);
         ros::spinOnce();

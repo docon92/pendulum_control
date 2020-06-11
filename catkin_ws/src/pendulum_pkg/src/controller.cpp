@@ -56,16 +56,20 @@ void controller::run (void)
     if(RUN_ENABLE && !PENDULUM_STOP)
         {
           controller::step();
-          force_output_pub.publish(Force_msg);
         }
         else if (!RUN_ENABLE && PENDULUM_STOP)
         {
             x3i = 0.0;
             F = 0.0;
-            force_output_pub.publish(Force_msg);
+            x1=0.0f;
+            x2=0.0f;
+            x3=0.0f;
+            x4=0.0f;
+            Fd = 0.0f;
         }
           
-  
+        force_output_pub.publish(Force_msg);  
+        LastTimestamp = ros::Time::now();
         ros::spinOnce();
         LoopRate.sleep();
     }
@@ -79,16 +83,13 @@ void controller::step( void )
 
     ros::Duration time_temp = ros::Time::now() - LastTimestamp;
     dt = time_temp.toSec();
-    //ROS_INFO("dt is: %f seconds",dt);
+    //ROS_INFO("dt is: %f, x3i is: %f",dt,x3i);
 
     Fd = -k1*x1-k2*x2-k3*(x3-x3_0)-k4*x4-k5*x3i;
     F = saturate_output(Fd);
-    x3i = x3i + (x3d-x3)*dt;
+    x3i += (x3d-x3)*dt;
     //ROS_INFO("x3i is: %f",x3i);
     Force_msg.data = F;
-
-    //ROS_INFO("Desired force is: %f",Fd);
-    LastTimestamp = ros::Time::now();
 
 }
 
