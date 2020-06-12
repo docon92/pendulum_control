@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   geometry_msgs
   std_msgs
+  visualization_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -156,6 +157,11 @@ include_directories(
  add_executable(overlord_node 
   src/overlord_node.cpp
 )
+
+ add_executable(ui_bridge_node 
+  src/ui_bridge_node.cpp
+)
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -169,7 +175,7 @@ include_directories(
 add_dependencies(pendulum_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(controller_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(manager_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
+add_dependencies(ui_bridge_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
 #add_dependencies(pendulum_node ${catkin_EXPORTED_TARGETS})
@@ -192,6 +198,10 @@ target_link_libraries(manager_node
 )
 
 target_link_libraries(overlord_node 
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(ui_bridge_node 
   ${catkin_LIBRARIES}
 )
 

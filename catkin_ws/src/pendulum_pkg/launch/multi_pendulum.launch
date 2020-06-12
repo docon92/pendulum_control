@@ -6,6 +6,7 @@
         <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum" output="screen"/>
         <node pkg="pendulum_pkg" type="controller_node" name="controller" output="screen"/>
         <node pkg="pendulum_pkg" type="manager_node" name="manager" output="screen"/>
+        <node pkg="pendulum_pkg" type="ui_bridge_node" name="ui_bridge" output="screen"/>
     </group>
 
     <group ns="p2">
@@ -13,6 +14,7 @@
         <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum" output="screen"/>
         <node pkg="pendulum_pkg" type="controller_node" name="controller" output="screen"/>
         <node pkg="pendulum_pkg" type="manager_node" name="manager" output="screen"/>
+        <node pkg="pendulum_pkg" type="ui_bridge_node" name="ui_bridge" output="screen"/>
     </group>
 
     <group ns="p3">
@@ -20,6 +22,7 @@
         <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum" output="screen"/>
         <node pkg="pendulum_pkg" type="controller_node" name="controller" output="screen"/>
         <node pkg="pendulum_pkg" type="manager_node" name="manager" output="screen"/>
+        <node pkg="pendulum_pkg" type="ui_bridge_node" name="ui_bridge" output="screen"/>
    
     </group>
         <group ns="p4">
@@ -27,6 +30,7 @@
         <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum" output="screen"/>
         <node pkg="pendulum_pkg" type="controller_node" name="controller" output="screen"/>
         <node pkg="pendulum_pkg" type="manager_node" name="manager" output="screen"/>
+        <node pkg="pendulum_pkg" type="ui_bridge_node" name="ui_bridge" output="screen"/>
     </group>
 
         <group ns="p5">
@@ -34,6 +38,7 @@
         <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum" output="screen"/>
         <node pkg="pendulum_pkg" type="controller_node" name="controller" output="screen"/>
         <node pkg="pendulum_pkg" type="manager_node" name="manager" output="screen"/>
+        <node pkg="pendulum_pkg" type="ui_bridge_node" name="ui_bridge" output="screen"/>
     </group>
 
 
