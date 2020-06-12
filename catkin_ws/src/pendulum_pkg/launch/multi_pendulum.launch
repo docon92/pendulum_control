@@ -43,4 +43,5 @@
 
 
     <node pkg="pendulum_pkg" type="overlord_node" name="overlord" output="screen"/>
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find pendulum_pkg)/config/ui_config.rviz" />  
 </launch>

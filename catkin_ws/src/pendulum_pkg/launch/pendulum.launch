@@ -9,4 +9,7 @@
         <node pkg="pendulum_pkg" type="ui_bridge_node" name="ui_bridge" output="screen"/>
     </group>
 
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find pendulum_pkg)/config/ui_config.rviz" />  
+
 </launch>
+

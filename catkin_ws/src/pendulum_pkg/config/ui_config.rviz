@@ -45,19 +45,19 @@ Visualization Manager:
       Name: Grid
       Normal Cell Count: 0
       Offset:
-        X: 0
+        X: 2
         Y: 0
         Z: 0
       Plane: XY
-      Plane Cell Count: 10
-      Reference Frame: <Fixed Frame>
+      Plane Cell Count: 6
+      Reference Frame: my_frame
       Value: true
     - Class: rviz/Marker
       Enabled: true
       Marker Topic: /p1/visualization_marker
       Name: Marker
       Namespaces:
-        {}
+        basic_shapes: true
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -65,7 +65,7 @@ Visualization Manager:
       Marker Topic: /p2/visualization_marker
       Name: Marker
       Namespaces:
-        {}
+        basic_shapes: true
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -73,7 +73,7 @@ Visualization Manager:
       Marker Topic: /p3/visualization_marker
       Name: Marker
       Namespaces:
-        {}
+        basic_shapes: true
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -81,7 +81,7 @@ Visualization Manager:
       Marker Topic: /p4/visualization_marker
       Name: Marker
       Namespaces:
-        {}
+        basic_shapes: true
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -89,7 +89,7 @@ Visualization Manager:
       Marker Topic: /p5/visualization_marker
       Name: Marker
       Namespaces:
-        {}
+        basic_shapes: true
       Queue Size: 100
       Value: true
   Enabled: true
@@ -120,14 +120,14 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 11.594411849975586
+      Distance: 9
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
+        X: 2.5
         Y: 0
         Z: 0
       Focal Shape Fixed Size: true
@@ -135,10 +135,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.2703985869884491
-      Target Frame: <Fixed Frame>
+      Pitch: 0.42499974370002747
+      Target Frame: my_frame
       Value: Orbit (rviz)
-      Yaw: 1.4404048919677734
+      Yaw: 1.5010000467300415
     Saved: ~
 Window Geometry:
   Displays:
