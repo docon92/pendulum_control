@@ -62,6 +62,9 @@ pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.o: /opt/ros/melodic/inc
 pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
 pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.o: /opt/ros/melodic/include/std_msgs/Float64.h
 pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.o: /opt/ros/melodic/include/std_msgs/Int32.h
+pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.o: /opt/ros/melodic/include/std_msgs/MultiArrayDimension.h
+pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.o: /opt/ros/melodic/include/std_msgs/MultiArrayLayout.h
+pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.o: /opt/ros/melodic/include/std_msgs/UInt16MultiArray.h
 pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 pendulum_pkg/CMakeFiles/manager_node.dir/src/manager.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h
 
@@ -126,6 +129,9 @@ pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.o: /opt/ros/melodi
 pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
 pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.o: /opt/ros/melodic/include/std_msgs/Float64.h
 pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.o: /opt/ros/melodic/include/std_msgs/Int32.h
+pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.o: /opt/ros/melodic/include/std_msgs/MultiArrayDimension.h
+pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.o: /opt/ros/melodic/include/std_msgs/MultiArrayLayout.h
+pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.o: /opt/ros/melodic/include/std_msgs/UInt16MultiArray.h
 pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 pendulum_pkg/CMakeFiles/manager_node.dir/src/manager_node.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h
 

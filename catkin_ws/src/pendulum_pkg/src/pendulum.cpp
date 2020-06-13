@@ -8,8 +8,8 @@
 
 
 
-    run_enable_sub = nh.subscribe<std_msgs::Int32>("/sim_enable", 5, &pendulum::handle_run_enable,this); 
-    pendulum_stop_sub = nh.subscribe<std_msgs::Int32>("manager/stop_pendulum", 5, &pendulum::handle_pendulum_stop,this); 
+    run_enable_sub = nh.subscribe<std_msgs::Int32>("manager/sim_enable", 1, &pendulum::handle_run_enable,this); 
+    pendulum_stop_sub = nh.subscribe<std_msgs::Int32>("manager/stop_pendulum", 1, &pendulum::handle_pendulum_stop,this); 
     force_input_sub = nh.subscribe<std_msgs::Float64>("controller/output_force", 5, &pendulum::handle_force_input,this);
     position_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/position", 5);
     velocity_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/velocity", 5);

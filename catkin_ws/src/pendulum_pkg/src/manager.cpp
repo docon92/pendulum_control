@@ -2,8 +2,25 @@
 
  manager::manager(ros::NodeHandle& In_nh,float rate) : LoopRate(rate)
 {
-    nh = In_nh;
-    RUN_ENABLE = 1;
+  nh = In_nh;
+  std_msgs::UInt16MultiArray init_msg;
+
+  std::vector<short unsigned int> zeros;
+  for(int i=0;i<5;i++)
+    {zeros.push_back(0);}
+
+  init_msg.layout.dim.push_back(std_msgs::MultiArrayDimension());  
+  init_msg.layout.dim[0].size = zeros.size();
+  init_msg.layout.dim[0].stride = 1;
+  init_msg.layout.dim[0].label = std::to_string(pendulum_id);
+
+  std::vector<short unsigned int>::const_iterator itr, end(zeros.end());
+    for(itr = zeros.begin(); itr!= end; ++itr) 
+      {init_msg.data.push_back(*itr);}/**/
+
+  status_array_msg = init_msg;
+
+    sim_enable = 1;
     connect_to_neighbours();
     init();
 }
@@ -15,6 +32,7 @@ void manager::init ()
 
   PENDULUM_STOP = 0;
   pendulum_stop_msg.data = PENDULUM_STOP;
+  status_array_msg.data[pendulum_id - 1] = PENDULUM_STOP; 
   x_neighbour_1 = 1.0E9;
   x_neighbour_2 = 1.0E9;
   x = 0.0;
@@ -22,7 +40,12 @@ void manager::init ()
   dist_n1 = 1.0E9;
   dist_n2 = 1.0E9;
 
+  LastTimestamp = ros::Time::now();
   //ROS_INFO("Initialized a manager!");
+
+  status_array_pub.publish(status_array_msg);
+  pendulum_stop_pub.publish(pendulum_stop_msg);
+  ros::Duration(1.0).sleep();
 }
 
 void manager::run (void)
@@ -30,17 +53,40 @@ void manager::run (void)
 
   while(ros::ok())
   {
-    if(RUN_ENABLE && !PENDULUM_STOP)
+
+    manager::check_sim_status();
+    
+    if(sim_enable==1 && PENDULUM_STOP==0)
     {
       manager::step();
+        //ROS_INFO("publishing status!");
+        status_array_pub.publish(status_array_msg);
+      
     }
-    else if (!RUN_ENABLE && PENDULUM_STOP)
+    else if (sim_enable==0 && PENDULUM_STOP==1)
     {
+      ROS_WARN("PENDULUM %d DISABLED IMULATION",pendulum_id);
+      pendulum_stop_msg.data = PENDULUM_STOP;
+      pendulum_stop_pub.publish(pendulum_stop_msg);
+      status_array_pub.publish(status_array_msg);
       manager::wait();
       manager::init();
-    }
+      pendulum_stop_msg.data = PENDULUM_STOP;
+      pendulum_stop_pub.publish(pendulum_stop_msg);
+      status_array_pub.publish(status_array_msg);
 
-    status_pub.publish(pendulum_stop_msg);
+    }
+    else
+    {
+       status_array_pub.publish(status_array_msg); 
+    }
+    
+    sim_enable_msg.data = sim_enable;
+    pendulum_stop_msg.data = PENDULUM_STOP; 
+    sim_enable_pub.publish(sim_enable_msg);
+    pendulum_stop_pub.publish(pendulum_stop_msg);
+    ROS_INFO("pendulum %d, sim_enable: %d, msg, %d,pstop: %d,pstop_msg: %d",pendulum_id,sim_enable,sim_enable_msg.data,PENDULUM_STOP,pendulum_stop_msg.data);
+    status_array_pub.publish(status_array_msg);
     ros::spinOnce();
     LoopRate.sleep();
   }
@@ -49,7 +95,7 @@ void manager::run (void)
 
 void manager::handle_sim_enable (const std_msgs::Int32::ConstPtr& new_sim_enable)
 {
-  RUN_ENABLE = new_sim_enable->data;
+  //sim_enable = new_sim_enable->data;
 }
 
 void manager::handle_neighbour_1_pos (const geometry_msgs::Pose2D::ConstPtr& new_neighbour_pos)
@@ -69,6 +115,39 @@ void manager::handle_position (const geometry_msgs::Pose2D::ConstPtr& new_positi
   x = new_position->x;
 }
 
+
+void manager::handle_stop_status(const std_msgs::UInt16MultiArray::ConstPtr& new_status)
+{
+
+    status_array_msg.layout.dim[0].size = new_status->layout.dim[0].size;
+//    status_array_msg.data = new_status->data;
+  
+  if(sim_enable)
+  {
+    for(int i=0; i < status_array_msg.layout.dim[0].size; i++)
+    {
+      if(new_status->data[i])
+      {
+        status_array_msg.data[i] = 1;
+      }
+    }
+  }
+  else
+  {
+    for(int i=0; i < status_array_msg.layout.dim[0].size; i++)
+    {
+      if(!new_status->data[i])
+      {
+        status_array_msg.data[i] = 0;
+      }
+    }
+  }
+  
+
+    status_array_msg.data[pendulum_id-1] = PENDULUM_STOP;
+
+}
+
 void manager::step( void )
 {
     //ROS_INFO("running manager!");
@@ -80,7 +159,10 @@ void manager::step( void )
     //ROS_INFO("Pendulum is too close!");
     PENDULUM_STOP = 1;
     pendulum_stop_msg.data = PENDULUM_STOP;
+    status_array_msg.data[pendulum_id-1] = PENDULUM_STOP; 
+    status_array_pub.publish(status_array_msg);
   }
+  //pendulum_enable_pub.publish(status_array_msg);
 	//status_pub.publish(pendulum_stop_msg);
 
 }
@@ -90,10 +172,16 @@ void manager::wait (void)
   time_t t;
   int seed = static_cast<unsigned> (time(&t))+rand_seed;
   srand(seed);
-  float max_sleep = 10.0;
+  float max_sleep =4.0;
   float sleep_time = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/(max_sleep));
   ROS_INFO("Waiting %f seconds to restart!",sleep_time);
-  ros::Duration(sleep_time).sleep();
+  ros::Time Timestamp = ros::Time::now();
+  while(ros::ok() && (ros::Time::now()-Timestamp)<ros::Duration(sleep_time))
+  {
+    ros::spinOnce();
+    LoopRate.sleep();
+  }
+  //ros::Duration(sleep_time).sleep();
 
 }
 
@@ -104,11 +192,19 @@ void manager::connect_to_neighbours(void)
   std::string def = "VOID";
   float distance_threshold_default = 0.8;
   int rand_seed_default = 22;
+
   nh.param("rand_seed", rand_seed, rand_seed_default);
   nh.param("neighbour_1", neighbour_1,def);
   nh.param("neighbour_2", neighbour_2, def);
   nh.param("distance_threshold", distance_threshold, distance_threshold_default);
 	
+  pendulum_id = -1;
+  if (!nh.getParam("pendulum_id", pendulum_id))
+  {
+    ROS_INFO("You must set the pendulum_id for this node!");
+  }
+  else ROS_INFO("Got pendulum_id: %d", pendulum_id);
+
   //ROS_INFO("neighbour_1 is: %s", neighbour_1.c_str());
   //ROS_INFO("neighbour_2 is: %s", neighbour_2.c_str());
 
@@ -119,11 +215,17 @@ void manager::connect_to_neighbours(void)
   }
   else
   {
-    std::string topic_name =  "/" + neighbour_1 + "/pendulum/position";
-    neighbour_1_sub = nh.subscribe<geometry_msgs::Pose2D>(
-      topic_name, 5, &manager::handle_neighbour_1_pos,this);
+    std::string pos_topic_name =  "/" + neighbour_1 + "/pendulum/position";
+    std::string status_topic_name = "/" + neighbour_1 + "/manager/stop_status";
 
-      ROS_INFO("nb 1 sub topic is: %s", topic_name.c_str());
+    neighbour_1_sub = nh.subscribe<geometry_msgs::Pose2D>(
+      pos_topic_name, 5, &manager::handle_neighbour_1_pos,this);
+    stop_status_sub_n1 = nh.subscribe<std_msgs::UInt16MultiArray>(status_topic_name, 1,
+        &manager::handle_stop_status,this,ros::TransportHints()                                                                             
+                     .reliable()                                                                                       
+                     .tcpNoDelay(true));
+
+     // ROS_INFO("nb 1 sub topic is: %s", topic_name.c_str());
   }
 
 
@@ -133,15 +235,61 @@ void manager::connect_to_neighbours(void)
   }
   else
   {
-    std::string topic_name = "/" + neighbour_2 + "/pendulum/position";
+    std::string pos_topic_name = "/" + neighbour_2 + "/pendulum/position";
+    std::string status_topic_name = "/" + neighbour_2 + "/manager/stop_status";
     neighbour_2_sub = nh.subscribe<geometry_msgs::Pose2D>(
-      topic_name, 5, &manager::handle_neighbour_2_pos,this);
-    ROS_INFO("nb 2 sub topic is: %s", topic_name.c_str());
+      pos_topic_name, 5, &manager::handle_neighbour_2_pos,this);
+      
+    stop_status_sub_n2 = nh.subscribe<std_msgs::UInt16MultiArray>(status_topic_name, 1,
+        &manager::handle_stop_status,this,ros::TransportHints()                                                                             
+                     .reliable()                                                                                       
+                     .tcpNoDelay(true));  
+   // ROS_INFO("nb 2 sub topic is: %s", topic_name.c_str());
   }
 
 
   position_sub = nh.subscribe<geometry_msgs::Pose2D>("pendulum/position", 5, &manager::handle_position,this);
-  stop_sim_sub = nh.subscribe<std_msgs::Int32>("/sim_enable", 5, &manager::handle_sim_enable,this);
-  status_pub = nh.advertise<std_msgs::Int32>("manager/stop_pendulum", 5);
-  
+  //stop_sim_sub = nh.subscribe<std_msgs::Int32>("/sim_enable", 5, &manager::handle_sim_enable,this);
+ // stop_status_sub = nh.subscribe<std_msgs::UInt16MultiArray>("/stop_status", 1, &manager::handle_stop_status,this,ros::TransportHints().reliable().tcpNoDelay(true));
+  pendulum_stop_pub = nh.advertise<std_msgs::Int32>("manager/stop_pendulum", 20);
+  sim_enable_pub = nh.advertise<std_msgs::Int32>("manager/sim_enable", 20);
+  status_array_pub = nh.advertise<std_msgs::UInt16MultiArray>("manager/stop_status", 20);
+  ROS_INFO("initialized connections!");
 }
+
+  void manager::check_sim_status (void)
+  {
+    if(PENDULUM_STOP)
+    { 
+      int ALL_STOPPED = 1;
+      for(int i=0; i < status_array_msg.layout.dim[0].size; i++)
+      {
+        if(status_array_msg.data[i]==0)
+          ALL_STOPPED = 0;
+      }
+      if(ALL_STOPPED)
+      {
+        sim_enable = 0;
+        //ROS_INFO("Disabling simulation!");
+      }
+        
+    }
+
+    if(!sim_enable)
+    { 
+      int ALL_READY = 1;
+      for(int i=0; i < status_array_msg.layout.dim[0].size; i++)
+      {
+        if(status_array_msg.data[i]==1)
+        {
+          ALL_READY = 0;
+        }
+      }
+      if(ALL_READY)
+      {
+        sim_enable = 1;
+        ROS_INFO("Enabling simulation!");
+      }
+
+    }
+  }
