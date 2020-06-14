@@ -11,3 +11,19 @@ This repo contains Source code and doc for an inverted pendulum assignment. It c
 	A ros node that subscribes to relevant data only of its immediate neighbours and commands the controller and pendulum to stop or start depending on the state of the other pendulums. It applies a decentralized approach te determine if the simulation is allowed to continue.
 - **ui_node**
 	A node that collects data on a pendulum and converts it into visualization markers that can be displayed using ROS' visualization tool rviz
+
+## Requirements
+
+- A machine running Ubuntu 18
+- ROS melodic installed, find instructions [here](http://wiki.ros.org/melodic/Installation/Ubuntu)
+- rviz installed ``sudo apt update && sudo apt install ros-melodic-rviz``
+
+## Running the Simulation
+
+`catkin_ws/install/launch/multi_pendulum.launch` is a launch script that will launch five pendulums and the ui. To run this script, open a terminal and run:
+
+```
+cd pendulum_control/catkin_ws
+source install/setup.bash
+roslaunch pendulum_pkg multi_pendulum.launch
+```
