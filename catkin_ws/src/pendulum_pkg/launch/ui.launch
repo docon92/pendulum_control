@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<launch>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="my_ref_broadcaster" args="0 0 0 0 0 0 1 map my_frame" />
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find pendulum_pkg)/config/ui_config.rviz" />
+</launch>

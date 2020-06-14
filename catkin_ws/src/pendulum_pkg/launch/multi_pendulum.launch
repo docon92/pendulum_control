@@ -2,10 +2,6 @@
 
 <launch>
 
-    <!-- <node pkg="pendulum_pkg" type="overlord_node" name="overlord" output="screen"/> -->
-    <node pkg="tf2_ros" type="static_transform_publisher" name="my_ref_broadcaster" args="0 0 0 0 0 0 1 map my_frame" />
-    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find pendulum_pkg)/config/ui_config.rviz" />
-    
     <group ns="p1">
         <rosparam command="load" file="$(find pendulum_pkg)/config/p1.yaml" />
         <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum" output="screen"/>
@@ -46,6 +42,4 @@
         <node pkg="pendulum_pkg" type="ui_bridge_node" name="ui_bridge" output="screen"/>
     </group>
 
-
-  
 </launch>

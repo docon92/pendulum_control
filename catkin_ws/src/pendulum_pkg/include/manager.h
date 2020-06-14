@@ -34,7 +34,6 @@ class manager {
     ros::Subscriber neighbour_1_sub;
     ros::Subscriber neighbour_2_sub;
     ros::Subscriber position_sub;
-    //ros::Subscriber stop_sim_sub;
     ros::Subscriber stop_status_sub_n1;
     ros::Subscriber stop_status_sub_n2;
     ros::Publisher pendulum_stop_pub;

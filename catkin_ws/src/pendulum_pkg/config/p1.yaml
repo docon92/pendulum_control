@@ -36,4 +36,4 @@ rand_seed: 12
 # manager configs
 neighbour_1: "p2"
 neighbour_2: "VOID"
-distance_threshold: 0.8
+distance_threshold: 0.85
