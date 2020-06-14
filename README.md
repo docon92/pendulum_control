@@ -20,7 +20,7 @@ This repo contains Source code and doc for an inverted pendulum assignment. It c
 
 ## Running the Simulation
 
-The binaries for the nodes defined in this package have already been produced and can be found in `catkin_ws/install/`. `catkin_ws/install/launch/multi_pendulum.launch` is a launch script that will launch five pendulums and the ui. To run this script, open a terminal and run:
+The binaries for the nodes defined in this package have already been produced and can be found in `catkin_ws/install/`. `catkin_ws/install/share/pendulum_pkg/launch/multi_pendulum.launch` is a launch script that will launch five pendulums and the ui. To run this script, open a terminal and run:
 
 ```
 cd pendulum_control/catkin_ws
@@ -67,6 +67,15 @@ It is assumed that each pendulum group (pendulum, controller, manager, ui_bridge
 
 	Just like when it is monitoring the system status of the other pendulums while running, When the simulation is disabled, each manager periodically checks the other pendulum's PENDULUM_STOP flags. If it finds that PENDULUM_STOP is unset for any pendulum, it stores this information and republishes it to its neighbours. Once all five flags in a manager's stop_status are unset, it will set SIM_ENABLE, and the simulation can restart.
 
+### Diagrams of Message Flow
+
+
+
 ![One Pendulum Communication Description](images/one_pendulum_diagram.svg)
 
+The above diagram shows the messages that are passed internally between the processes of one pendulum group. The manager and controller subscribe to the pendulum's position over the topic `pendulum/position`. This topic contains the position of the cart as well as the angle of the pendulum. The controller also subscribes to `pendulum/velocity` for the velocity of the cart as well as the angular velocity of the pendulum. The pendulum subscribes to the output of the controller via the `controller/output_force` topic. To determine if they can run, the pendulum_node and controller_node subscribe to the `manager/sim_enable` and `manager/stop_pendulum` topic. The ui_bridge node takes `/pendulum/position` and converts/publishes it to a topic which can be interpreted by the rviz visualizer.
+
+
 ![Multi Pendulum Communication Description](images/multi_pendulum_diagram.svg)
+
+The above diagram better describes the inter-pendulum communication. As shown, pendulums only have a direct line of communication between their immediate neighbours. They subscribe to their neighbour's `pendulum/position` and `manager/stop_status` topics. Each manager processes this data and publishes to their own `manager/stop_status` topic, which can then be read by its own immediate neighbours. This mechanism of adding information to messages received from neighbours allows the state of indirectly connected agents permeate to all pendulums in the simulation.
