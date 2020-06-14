@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<launch>
+    <group ns="p1">
+        <rosparam command="load" file="$(find pendulum_pkg)/config/p1.yaml" />
+        <!-- <node pkg="pendulum_pkg" type="pendulum_node" name="pendulum" output="screen"/>
+        <node pkg="pendulum_pkg" type="controller_node" name="controller" output="screen"/> -->
+        <node pkg="pendulum_pkg" type="manager_node" name="manager" output="screen"/>
+        <!-- <node pkg="pendulum_pkg" type="ui_bridge_node" name="ui_bridge" output="screen"/> -->
+    </group>
+
+  <!-- <node type="rviz" name="rviz" pkg="rviz" args="-d $(find pendulum_pkg)/config/ui_config.rviz" />   -->
+
+</launch>
+

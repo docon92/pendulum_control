@@ -209,6 +209,43 @@ target_link_libraries(ui_bridge_node
 ## Install ##
 #############
 
+
+install( TARGETS
+    pendulum_node
+    controller_node
+    manager_node
+    ui_bridge_node
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(TARGETS
+    #list of shared libraries
+    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)
+
+#install(FILES 
+#  #list of necessary files (xml...)
+#  launch/
+#  config/
+#  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+#)
+
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+  PATTERN ".svn" EXCLUDE)
+
+install(DIRECTORY config/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
+  PATTERN ".svn" EXCLUDE)
+
+install(DIRECTORY 
+  include
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  PATTERN ".svn" EXCLUDE
+  PATTERN ".git" EXCLUDE
+)
+
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
 
