@@ -67,4 +67,4 @@ It is assumed that each pendulum group (pendulum, controller, manager, ui_bridge
 
 	Just like when it is monitoring the system status of the other pendulums while running, When the simulation is disabled, each manager periodically checks the other pendulum's PENDULUM_STOP flags. If it finds that PENDULUM_STOP is unset for any pendulum, it stores this information and republishes it to its neighbours. Once all five flags in a manager's stop_status are unset, it will set SIM_ENABLE, and the simulation can restart.
 
-	![One Pendulum Communication Description](images/one_pendulum_diagram.pdf)
+![One Pendulum Communication Description](images/one_pendulum_diagram.pdf)
