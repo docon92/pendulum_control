@@ -8,8 +8,14 @@ controller::controller( ros::NodeHandle& In_nh,float rate) : LoopRate(rate)
 
     nh = In_nh;
 
-   run_enable_sub = nh.subscribe<std_msgs::Int32>("manager/sim_enable", 20, &controller::handle_run_enable,this);
-   pendulum_stop_sub = nh.subscribe<std_msgs::Int32>("manager/stop_pendulum", 20, &controller::handle_pendulum_stop,this); 
+   run_enable_sub = nh.subscribe<std_msgs::Int32>("manager/sim_enable", 1, &controller::handle_run_enable,this,ros::TransportHints()                                                                             
+                     .tcp()
+                     .reliable()                                                                                       
+                     .tcpNoDelay(true)); 
+   pendulum_stop_sub = nh.subscribe<std_msgs::Int32>("manager/stop_pendulum", 1, &controller::handle_pendulum_stop,this,ros::TransportHints()                                                                             
+                     .tcp()
+                     .reliable()                                                                                       
+                     .tcpNoDelay(true)); 
    position_sub = nh.subscribe<geometry_msgs::Pose2D>("pendulum/position", 5, &controller::handle_position,this);
    velocity_sub = nh.subscribe<geometry_msgs::Pose2D>("pendulum/velocity", 5, &controller::handle_velocity,this);
    force_output_pub = nh.advertise<std_msgs::Float64>("controller/output_force", 5);
@@ -59,6 +65,7 @@ void controller::run (void)
         }
         else if (!RUN_ENABLE && PENDULUM_STOP)
         {
+            ROS_WARN("INITIALIZING CONTROLLER");
             x3i = 0.0;
             F = 0.0;
             x1=0.0f;

@@ -51,7 +51,7 @@ class manager {
 
     float x_neighbour_1,x_neighbour_2, x;
     float dist_n1, dist_n2, distance_threshold;
-    int sim_enable, PENDULUM_STOP; 
+    int sim_enable,stop_sim_count,sim_enable_count, PENDULUM_STOP; 
     int rand_seed;
     int pendulum_id;
 

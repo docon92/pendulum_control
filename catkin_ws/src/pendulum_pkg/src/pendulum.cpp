@@ -8,8 +8,14 @@
 
 
 
-    run_enable_sub = nh.subscribe<std_msgs::Int32>("manager/sim_enable", 1, &pendulum::handle_run_enable,this); 
-    pendulum_stop_sub = nh.subscribe<std_msgs::Int32>("manager/stop_pendulum", 1, &pendulum::handle_pendulum_stop,this); 
+    run_enable_sub = nh.subscribe<std_msgs::Int32>("manager/sim_enable", 1, &pendulum::handle_run_enable,this,ros::TransportHints()                                                                             
+                     .tcp()
+                     .reliable()                                                                                       
+                     .tcpNoDelay(true)); 
+    pendulum_stop_sub = nh.subscribe<std_msgs::Int32>("manager/stop_pendulum", 1, &pendulum::handle_pendulum_stop,this,ros::TransportHints()                                                                             
+                     .tcp()
+                     .reliable()                                                                                       
+                     .tcpNoDelay(true)); 
     force_input_sub = nh.subscribe<std_msgs::Float64>("controller/output_force", 5, &pendulum::handle_force_input,this);
     position_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/position", 5);
     velocity_pub = nh.advertise<geometry_msgs::Pose2D>("pendulum/velocity", 5);
@@ -90,6 +96,7 @@ void pendulum::run (void)
         }
         else if (!RUN_ENABLE && PENDULUM_STOP)
         {
+            ROS_WARN("INITIALIZING PENDULUM");
             pendulum::init();
         }
           
@@ -109,6 +116,8 @@ void pendulum::handle_force_input (const std_msgs::Float64::ConstPtr& new_force_
 void pendulum::handle_run_enable (const std_msgs::Int32::ConstPtr& new_flag)
 {
   RUN_ENABLE = new_flag->data;
+  if (RUN_ENABLE==0)
+    ROS_INFO("Pendulum  disabled by run_enable: %d,pendulum_stop: %d",RUN_ENABLE,PENDULUM_STOP);
 }
 void pendulum::handle_pendulum_stop (const std_msgs::Int32::ConstPtr& new_flag)
 {
