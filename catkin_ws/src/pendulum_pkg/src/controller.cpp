@@ -65,7 +65,6 @@ void controller::run (void)
         }
         else if (!RUN_ENABLE && PENDULUM_STOP)
         {
-            ROS_WARN("INITIALIZING CONTROLLER");
             x3i = 0.0;
             F = 0.0;
             x1=0.0f;

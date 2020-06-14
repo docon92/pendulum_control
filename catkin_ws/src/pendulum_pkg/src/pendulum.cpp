@@ -96,7 +96,7 @@ void pendulum::run (void)
         }
         else if (!RUN_ENABLE && PENDULUM_STOP)
         {
-            ROS_WARN("INITIALIZING PENDULUM");
+            //ROS_WARN("INITIALIZING PENDULUM");
             pendulum::init();
         }
           

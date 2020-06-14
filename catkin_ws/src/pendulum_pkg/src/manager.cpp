@@ -74,7 +74,7 @@ void manager::run (void)
     }
     else if (sim_enable==0 && PENDULUM_STOP==1)
     {
-      ROS_WARN("PENDULUM %d DISABLED IMULATION,sim_enable: %d,PENDULUM_STOP: %d",pendulum_id,sim_enable,PENDULUM_STOP);
+      //ROS_WARN("PENDULUM %d DISABLED IMULATION,sim_enable: %d,PENDULUM_STOP: %d",pendulum_id,sim_enable,PENDULUM_STOP);
       pendulum_stop_msg.data = PENDULUM_STOP;
       sim_enable_msg.data = sim_enable;
       status_array_pub.publish(status_array_msg);
@@ -82,7 +82,7 @@ void manager::run (void)
       manager::wait();
       pendulum_stop_pub.publish(pendulum_stop_msg);
       manager::init();
-      ROS_WARN("PENDULUM %d DISABLED IMULATION,sim_enable: %d,PENDULUM_STOP: %d",pendulum_id,sim_enable,PENDULUM_STOP);
+      //ROS_WARN("PENDULUM %d DISABLED IMULATION,sim_enable: %d,PENDULUM_STOP: %d",pendulum_id,sim_enable,PENDULUM_STOP);
       pendulum_stop_msg.data = PENDULUM_STOP;
       pendulum_stop_pub.publish(pendulum_stop_msg);
       status_array_pub.publish(status_array_msg);
