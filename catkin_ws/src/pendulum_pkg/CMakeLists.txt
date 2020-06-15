@@ -154,9 +154,9 @@ include_directories(
   src/manager.cpp
 )
 
- add_executable(overlord_node 
-  src/overlord_node.cpp
-)
+ #add_executable(overlord_node 
+ # src/overlord_node.cpp
+#)
 
  add_executable(ui_bridge_node 
   src/ui_bridge_node.cpp
@@ -197,9 +197,9 @@ target_link_libraries(manager_node
   ${catkin_LIBRARIES}
 )
 
-target_link_libraries(overlord_node 
-  ${catkin_LIBRARIES}
-)
+#target_link_libraries(overlord_node 
+#  ${catkin_LIBRARIES}
+#)
 
 target_link_libraries(ui_bridge_node 
   ${catkin_LIBRARIES}

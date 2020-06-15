@@ -117,7 +117,7 @@ void pendulum::handle_run_enable (const std_msgs::Int32::ConstPtr& new_flag)
 {
   RUN_ENABLE = new_flag->data;
   if (RUN_ENABLE==0)
-    ROS_INFO("Pendulum  disabled by run_enable: %d,pendulum_stop: %d",RUN_ENABLE,PENDULUM_STOP);
+    {ROS_INFO("Pendulum  disabled! run_enable: %d,pendulum_stop: %d",RUN_ENABLE,PENDULUM_STOP);}
 }
 void pendulum::handle_pendulum_stop (const std_msgs::Int32::ConstPtr& new_flag)
 {
@@ -128,7 +128,6 @@ void pendulum::handle_pendulum_stop (const std_msgs::Int32::ConstPtr& new_flag)
 /// rand() is initialized in the constructor
 void pendulum::calculate_disturbance (void)
 {
-  
   disturbance = -max_disturbance + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)/(2*max_disturbance));
   //ROS_INFO("disturbance is: %f",disturbance);
 }
@@ -141,7 +140,6 @@ void pendulum::step( void )
 
   u = F;
   
-
   delta_x1 = x2*dt;
   delta_x2 = (c1*x1+c3*u + disturbance)*dt;
   delta_x3 = (x4)*dt;
@@ -157,9 +155,7 @@ void pendulum::step( void )
   velocity_msg.theta = x2;
   velocity_msg.x =x4;
   
-
   //ROS_INFO("Angle is: %f", x1);
-
 }
 
 void pendulum::broadcast_state( void )
@@ -168,7 +164,3 @@ void pendulum::broadcast_state( void )
 	velocity_pub.publish(velocity_msg);
 }
 
-void pendulum::wait (void)
-{
-
-}

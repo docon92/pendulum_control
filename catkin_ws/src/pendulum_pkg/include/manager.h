@@ -16,7 +16,6 @@ class manager {
     ~manager(void);
     void run (void);
   
-
   private:
 
     void init (void);
@@ -24,7 +23,6 @@ class manager {
     void connect_to_neighbours(void);
     void handle_neighbour_1_pos (const geometry_msgs::Pose2D::ConstPtr& new_neighbour_pos);
     void handle_neighbour_2_pos (const geometry_msgs::Pose2D::ConstPtr& new_neighbour_pos);
-    void handle_sim_enable (const std_msgs::Int32::ConstPtr& new_sim_enable);
     void handle_position (const geometry_msgs::Pose2D::ConstPtr& new_position);
     void handle_stop_status(const std_msgs::UInt16MultiArray::ConstPtr& new_status);
     void check_sim_status (void);
@@ -41,7 +39,6 @@ class manager {
     ros::Publisher status_array_pub;
     ros::Rate LoopRate;
 
-    
     std_msgs::UInt16MultiArray status_array_msg;
     std_msgs::Int32 pendulum_stop_msg;
     std_msgs::Int32 sim_enable_msg;
@@ -50,10 +47,9 @@ class manager {
 
     float x_neighbour_1,x_neighbour_2, x;
     float dist_n1, dist_n2, distance_threshold;
-    int sim_enable,stop_sim_count,sim_enable_count, PENDULUM_STOP; 
+    int SIM_ENABLE,stop_sim_count,sim_enable_count, PENDULUM_STOP; 
     int rand_seed;
     int pendulum_id;
-
 
     ros::Time LastTimestamp;
     double dt;

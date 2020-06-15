@@ -4,7 +4,6 @@
 #include "geometry_msgs/Pose2D.h"
 #include <time.h>
 
-
 class pendulum {
 
   public:
@@ -13,7 +12,6 @@ class pendulum {
     ~pendulum(void);
     void run (void);
   
-
   private:
 
     void init (void);
@@ -24,8 +22,6 @@ class pendulum {
     void handle_force_input (const std_msgs::Float64::ConstPtr& new_force_input);
     void broadcast_state( void );
     
-    void wait (void);
-
     ros::NodeHandle nh;
     ros::Subscriber run_enable_sub;
     ros::Subscriber pendulum_stop_sub;
@@ -41,9 +37,7 @@ class pendulum {
     std::string neighbour_2;
 
     float x1, x2,delta_x1, delta_x2, x3, x4,delta_x3, delta_x4;
-    float l;
-    float m;
-    float M;
+    float l, m, M;
     float u, F, disturbance, max_disturbance;
     float c1,c2,c3,c4;
     float sim_rate;
@@ -51,11 +45,7 @@ class pendulum {
     int RUN_ENABLE, PENDULUM_STOP;
     int rand_seed;
 
-
     ros::Time LastTimestamp;
     double dt;
-
-
-
 
 };

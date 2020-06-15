@@ -11,7 +11,6 @@ class controller {
     ~controller(void);
     void run (void);
   
-
   private:
 
     void step( void );
@@ -32,7 +31,6 @@ class controller {
     
     std_msgs::Float64 Force_msg;
 
-
     float k1, k2, k3, k4, k5;
     float x1, x2, x3, x4, x3i, x3d, x3_0;
     float Fd, F, max_F;
@@ -41,8 +39,5 @@ class controller {
 
     ros::Time LastTimestamp;
     double dt;
-
-
-
 
 };

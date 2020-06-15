@@ -55,10 +55,8 @@ controller::~controller(void){}
 
 void controller::run (void)
 {
-
    while(ros::ok())
 	{
-
     if(RUN_ENABLE && !PENDULUM_STOP)
         {
           controller::step();
@@ -79,14 +77,10 @@ void controller::run (void)
         ros::spinOnce();
         LoopRate.sleep();
     }
-
-
-
 }
 
 void controller::step( void )
 {
-
     ros::Duration time_temp = ros::Time::now() - LastTimestamp;
     dt = time_temp.toSec();
     //ROS_INFO("dt is: %f, x3i is: %f",dt,x3i);
@@ -96,21 +90,19 @@ void controller::step( void )
     x3i += (x3d-x3)*dt;
     //ROS_INFO("x3i is: %f",x3i);
     Force_msg.data = F;
-
 }
 
 
 void controller::handle_position (const geometry_msgs::Pose2D::ConstPtr& new_position)
 {
-
   x1 = new_position->theta;
   x3 = new_position->x;
 
- if (!CONTROLLER_INIT)
-    {
-       x3_0 = x3;
-       CONTROLLER_INIT=true; 
-    }
+  if (!CONTROLLER_INIT)
+  {
+    x3_0 = x3;
+    CONTROLLER_INIT=true; 
+  }
 }
 void controller::handle_velocity (const geometry_msgs::Pose2D::ConstPtr& new_velocity)
 {
@@ -126,7 +118,6 @@ void controller::handle_pendulum_stop (const std_msgs::Int32::ConstPtr& new_flag
 {
   PENDULUM_STOP = new_flag->data;
 }
-
 
 float controller::sign_of_num(float num)
 { 
